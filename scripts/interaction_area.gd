@@ -7,8 +7,7 @@ var _current: Interactable = null
 
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
-	area_exited.connect(_on_area_exited)
+	pass
 
 
 func _physics_process(_delta: float) -> void:

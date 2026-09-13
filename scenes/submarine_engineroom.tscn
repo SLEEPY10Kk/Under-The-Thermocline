@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cnef2df5h0gj5" path="res://assets/submarine-engineroom.png" id="1_cudy0"]
 [ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_7hcf8"]
 [ext_resource type="Script" uid="uid://h8jri43iaf6h" path="res://scenes/door_to_mainroom.gd" id="3_7hcf8"]
+[ext_resource type="Texture2D" uid="uid://cyd32g0ahseui" path="res://assets/engineroom-O2.png" id="4_40quf"]
 [ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="4_d4ukq"]
+[ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="6_pjdp4"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
 distance = -66.0
@@ -11,6 +13,56 @@ distance = -66.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cudy0"]
 radius = 18.0
 height = 62.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjdp4"]
+atlas = ExtResource("4_40quf")
+region = Rect2(0, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe7y1"]
+atlas = ExtResource("4_40quf")
+region = Rect2(60, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrjpb"]
+atlas = ExtResource("4_40quf")
+region = Rect2(120, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhtp7"]
+atlas = ExtResource("4_40quf")
+region = Rect2(180, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3t44p"]
+atlas = ExtResource("4_40quf")
+region = Rect2(240, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5av4x"]
+atlas = ExtResource("4_40quf")
+region = Rect2(300, 0, 60, 103)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d3qsn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjdp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qe7y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrjpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhtp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3t44p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5av4x")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 8.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7hcf8"]
 
@@ -44,12 +96,57 @@ spawn_marker = NodePath("../spawn_marker")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
 shape = SubResource("CapsuleShape2D_cudy0")
 
-[node name="Area2D2" type="Area2D" parent="." unique_id=1387816017]
+[node name="Node" type="Node" parent="." unique_id=2137187008]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node" unique_id=686817767]
+texture_filter = 1
+position = Vector2(-172.315, -0.5)
+sprite_frames = SubResource("SpriteFrames_d3qsn")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.38830987
+
+[node name="Area2D2" type="Area2D" parent="Node" unique_id=695182155]
+position = Vector2(-172.315, 22.555)
+script = ExtResource("4_d4ukq")
+part_name = "O2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D2" unique_id=286602123]
+scale = Vector2(2.765, 2.765)
+shape = SubResource("CircleShape2D_7hcf8")
+
+[node name="Node3" type="Node" parent="." unique_id=1841162136]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node3" unique_id=658918921]
+texture_filter = 1
+position = Vector2(-75.83, -0.5)
+sprite_frames = SubResource("SpriteFrames_d3qsn")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.7868879
+
+[node name="Area2D2" type="Area2D" parent="Node3" unique_id=357645132]
+position = Vector2(-75.83, 22.555)
+script = ExtResource("4_d4ukq")
+part_name = "O2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node3/Area2D2" unique_id=800933086]
+scale = Vector2(2.765, 2.765)
+shape = SubResource("CircleShape2D_7hcf8")
+
+[node name="Node2" type="Node" parent="." unique_id=1398615709]
+
+[node name="Area2D2" type="Area2D" parent="Node2" unique_id=1387816017]
 position = Vector2(332.64, 26.1)
 script = ExtResource("4_d4ukq")
+part_name = "PC"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1736595338]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2/Area2D2" unique_id=1736595338]
 scale = Vector2(2.92, 2.92)
 shape = SubResource("CircleShape2D_7hcf8")
+
+[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
+z_index = 2
+texture = ExtResource("6_pjdp4")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

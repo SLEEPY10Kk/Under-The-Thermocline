@@ -14,6 +14,7 @@
 script = ExtResource("1_qm0ti")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=592095903]
+z_index = 1
 texture = ExtResource("1_0s3u6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2056627675]
