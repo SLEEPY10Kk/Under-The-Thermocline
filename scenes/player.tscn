@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dws217plb7nrf" path="res://icon.svg" id="1_0s3u6"]
 [ext_resource type="Script" uid="uid://cfdktq313uppd" path="res://scripts/movementscript.gd" id="1_qm0ti"]
+[ext_resource type="Script" uid="uid://bl3bytlbhvtgv" path="res://scripts/interaction_area.gd" id="3_qhqgy"]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qm0ti"]
 
@@ -9,7 +10,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqap4"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1633941764]
+[node name="Player" type="CharacterBody2D" unique_id=1633941764 groups=["player"]]
 script = ExtResource("1_qm0ti")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=592095903]
@@ -27,7 +28,11 @@ scale = Vector2(6.29, 6.29)
 shape = SubResource("RectangleShape2D_fhbv5")
 
 [node name="Touch Area" type="Area2D" parent="." unique_id=1321887580]
+script = ExtResource("3_qhqgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Touch Area" unique_id=2086481261]
 scale = Vector2(10.775, 10.775)
 shape = SubResource("CircleShape2D_pqap4")
+
+[connection signal="area_entered" from="Touch Area" to="Touch Area" method="_on_area_entered"]
+[connection signal="area_exited" from="Touch Area" to="Touch Area" method="_on_area_exited"]

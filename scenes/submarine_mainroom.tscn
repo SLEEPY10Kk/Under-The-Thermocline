@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://c47grygksgjch"]
+
+[ext_resource type="Texture2D" uid="uid://bf0o6ydnabye6" path="res://assets/submarine-mainroom.png" id="1_ofrkc"]
+[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_2oqxe"]
+[ext_resource type="Script" uid="uid://bry8nih1uq60w" path="res://scripts/door_to_engineroom.gd" id="3_2oqxe"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ofrkc"]
+distance = -67.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ofrkc"]
+
+[node name="Main" type="Node2D" unique_id=1182824493]
+
+[node name="SubmarineMainroom" type="Sprite2D" parent="." unique_id=1798510246]
+texture_filter = 1
+texture = ExtResource("1_ofrkc")
+
+[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_2oqxe")]
+position = Vector2(-7.1054274e-15, 53.999996)
+scale = Vector2(0.105, 0.105)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=903665299]
+position = Vector2(0, -581.876)
+scale = Vector2(0.99999994, 0.99999994)
+zoom = Vector2(5.955, 5.955)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1315684197]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2096653715]
+shape = SubResource("WorldBoundaryShape2D_ofrkc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2087500822 node_paths=PackedStringArray("spawn_marker")]
+position = Vector2(-75.32, 53.985)
+script = ExtResource("3_2oqxe")
+spawn_marker = NodePath("../spawn_marker")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1667250468]
+shape = SubResource("CapsuleShape2D_ofrkc")
+
+[node name="spawn_marker" type="Marker2D" parent="." unique_id=326746212]
+position = Vector2(-52, 55)
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

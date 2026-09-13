@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b0njyh15oaghx"]
+
+[ext_resource type="Texture2D" uid="uid://cnef2df5h0gj5" path="res://assets/submarine-engineroom.png" id="1_cudy0"]
+[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_7hcf8"]
+[ext_resource type="Script" uid="uid://h8jri43iaf6h" path="res://scenes/door_to_mainroom.gd" id="3_7hcf8"]
+[ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="4_d4ukq"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
+distance = -66.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cudy0"]
+radius = 18.0
+height = 62.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7hcf8"]
+
+[node name="Main" type="Node2D" unique_id=946437971]
+
+[node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=1737694489]
+texture_filter = 1
+texture = ExtResource("1_cudy0")
+
+[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_7hcf8")]
+position = Vector2(580, 35)
+scale = Vector2(0.19, 0.19)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
+position = Vector2(0, -200.55)
+zoom = Vector2(5.91, 5.91)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=133853300]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1129879305]
+shape = SubResource("WorldBoundaryShape2D_d4ukq")
+
+[node name="spawn_marker" type="Marker2D" parent="." unique_id=1996032913]
+position = Vector2(579, 35)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1817921721 node_paths=PackedStringArray("spawn_marker")]
+position = Vector2(618, 33)
+script = ExtResource("3_7hcf8")
+spawn_marker = NodePath("../spawn_marker")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
+shape = SubResource("CapsuleShape2D_cudy0")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=1387816017]
+position = Vector2(332.64, 26.1)
+script = ExtResource("4_d4ukq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1736595338]
+scale = Vector2(2.92, 2.92)
+shape = SubResource("CircleShape2D_7hcf8")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

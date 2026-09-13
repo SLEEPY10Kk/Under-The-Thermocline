@@ -11,8 +11,23 @@ config_version=5
 [application]
 
 config/name="GBJAM"
+run/main_scene="uid://c47grygksgjch"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneManager="*uid://cx03furrcrwyp"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=864
+
+[global_group]
+
+player=""
 
 [input]
 
