@@ -74,11 +74,10 @@ texture = ExtResource("1_cudy0")
 
 [node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_7hcf8")]
 position = Vector2(580, 35)
-scale = Vector2(0.19, 0.19)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
-position = Vector2(0, -200.55)
-zoom = Vector2(5.91, 5.91)
+position = Vector2(0, -40.645)
+zoom = Vector2(6, 6)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=133853300]
 
@@ -88,10 +87,10 @@ shape = SubResource("WorldBoundaryShape2D_d4ukq")
 [node name="spawn_marker" type="Marker2D" parent="." unique_id=1996032913]
 position = Vector2(579, 35)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1817921721 node_paths=PackedStringArray("spawn_marker")]
+[node name="Area2D" type="Area2D" parent="." unique_id=1817921721]
 position = Vector2(618, 33)
 script = ExtResource("3_7hcf8")
-spawn_marker = NodePath("../spawn_marker")
+spawn_marker = "spawn_marker"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
 shape = SubResource("CapsuleShape2D_cudy0")
@@ -147,6 +146,7 @@ shape = SubResource("CircleShape2D_7hcf8")
 
 [node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
 z_index = 2
+texture_filter = 1
 texture = ExtResource("6_pjdp4")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

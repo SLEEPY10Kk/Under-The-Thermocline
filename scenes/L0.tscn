@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://da1l1nka1ast7"]
+
+[ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="1_857ke"]
+[ext_resource type="Texture2D" uid="uid://cnef2df5h0gj5" path="res://assets/submarine-engineroom.png" id="2_fyyle"]
+[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="3_xonxp"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fwjgu"]
+distance = -65.0
+
+[node name="Main" type="Node2D" unique_id=1791971807]
+
+[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1464677484]
+z_index = 2
+texture = ExtResource("1_857ke")
+
+[node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=917816285]
+texture = ExtResource("2_fyyle")
+
+[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("3_xonxp")]
+position = Vector2(286, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=420071270]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=254726303]
+shape = SubResource("WorldBoundaryShape2D_fwjgu")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=677102088]
+position = Vector2(581, 26)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ct7oy0ic7dhgf"]
 
-[ext_resource type="Texture2D" uid="uid://dws217plb7nrf" path="res://icon.svg" id="1_0s3u6"]
 [ext_resource type="Script" uid="uid://cfdktq313uppd" path="res://scripts/movementscript.gd" id="1_qm0ti"]
+[ext_resource type="Texture2D" uid="uid://bkwved3bdklxq" path="res://assets/mc.png" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://bl3bytlbhvtgv" path="res://scripts/interaction_area.gd" id="3_qhqgy"]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qm0ti"]
@@ -15,7 +15,8 @@ script = ExtResource("1_qm0ti")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=592095903]
 z_index = 1
-texture = ExtResource("1_0s3u6")
+texture_filter = 1
+texture = ExtResource("2_qhqgy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2056627675]
 
@@ -25,10 +26,11 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = Vector2(0, 0)
 
 [node name="Collision Area" type="CollisionShape2D" parent="." unique_id=1310480359]
-scale = Vector2(6.29, 6.29)
+scale = Vector2(1.6, 1.6)
 shape = SubResource("RectangleShape2D_fhbv5")
 
 [node name="Touch Area" type="Area2D" parent="." unique_id=1321887580]
+scale = Vector2(0.21, 0.21)
 script = ExtResource("3_qhqgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Touch Area" unique_id=2086481261]
