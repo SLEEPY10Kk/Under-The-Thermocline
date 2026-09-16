@@ -22,6 +22,9 @@ var broken_part_ids: Array[String] = []
 var player_inside: bool = true
 var _last_milestone_checked: float = 0.0
 
+const MAX_DEPTH: float = 10000.0
+
+var reached_bottom: bool = false
 
 func _process(delta: float) -> void:
 	if can_descend():
@@ -30,7 +33,7 @@ func _process(delta: float) -> void:
 
 
 func can_descend() -> bool:
-	return player_inside and not is_submarine_broken()
+	return player_inside and not is_submarine_broken() and not reached_bottom
 
 
 func is_submarine_broken() -> bool:
@@ -42,8 +45,17 @@ func set_player_inside(value: bool) -> void:
 
 
 func set_depth(value: float) -> void:
-	depth = max(value, 0.0)
+	depth = clamp(value, 0.0, MAX_DEPTH)
 	_check_milestones()
+
+	if depth >= MAX_DEPTH and not reached_bottom:
+		reached_bottom = true
+		_on_reached_bottom()
+
+
+func _on_reached_bottom() -> void:
+	print("Reached maximum depth — entering final scene.")
+	SceneManager.go_to_final_scene()
 
 
 func _check_milestones() -> void:

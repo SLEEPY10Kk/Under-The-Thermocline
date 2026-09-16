@@ -32,4 +32,4 @@ func _do_repair() -> void:
 	set_highlighted(false)
 
 	if randf() < engine_room_swap_chance:
-		SceneManager.go_to_room("engine_room", "PlayerSpawn", true)
+		SceneManager.go_to_room("engine_room", "PlayerSpawn")

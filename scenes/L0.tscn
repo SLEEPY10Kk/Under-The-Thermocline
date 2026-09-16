@@ -1,28 +1,31 @@
 [gd_scene format=3 uid="uid://da1l1nka1ast7"]
 
-[ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="1_857ke"]
-[ext_resource type="Texture2D" uid="uid://cnef2df5h0gj5" path="res://assets/submarine-engineroom.png" id="2_fyyle"]
+[ext_resource type="Texture2D" uid="uid://blfolcil43mtm" path="res://assets/L0.png" id="1_7363s"]
+[ext_resource type="Script" uid="uid://81iy4exwu1tk" path="res://scenes/water_to_mainroom.gd" id="3_857ke"]
 [ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="3_xonxp"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fwjgu"]
-distance = -65.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fyyle"]
+radius = 31.0
+height = 62.0
 
 [node name="Main" type="Node2D" unique_id=1791971807]
 
-[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1464677484]
-z_index = 2
-texture = ExtResource("1_857ke")
-
-[node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=917816285]
-texture = ExtResource("2_fyyle")
+[node name="L0" type="Sprite2D" parent="." unique_id=1166786732]
+texture_filter = 1
+texture = ExtResource("1_7363s")
 
 [node name="Player" parent="." unique_id=1633941764 instance=ExtResource("3_xonxp")]
-position = Vector2(286, 32)
+position = Vector2(-563, -499)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=420071270]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=254726303]
-shape = SubResource("WorldBoundaryShape2D_fwjgu")
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=299145577]
+zoom = Vector2(6, 6)
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=677102088]
-position = Vector2(581, 26)
+position = Vector2(-403, -510)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1398287663]
+script = ExtResource("3_857ke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1665546639]
+position = Vector2(-473, -576)
+shape = SubResource("CapsuleShape2D_fyyle")

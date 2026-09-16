@@ -1,6 +1,9 @@
 extends Node
 
-const NUM_ZONES: int = 5
+@export var engine_room_swap_chance: float = 0.4 
+
+
+const NUM_ZONES: int = 4
 const FIXED_FINAL_DEPTH: float = 10000.0
 const MIN_GAP: float = 500.0
 const MAX_GAP: float = 3000.0
@@ -10,7 +13,6 @@ const ZONE_SCENES: Array[String] = [
 	"res://scenes/L1.tscn",
 	"res://scenes/L2.tscn",
 	"res://scenes/L3.tscn",
-	"res://scenes/L4.tscn",
 ]
 
 var depth_zones: Array[Dictionary] = []
@@ -29,6 +31,10 @@ var interior_rooms: Dictionary = {
 
 var current_scene_path: String = ""
 var _pending_spawn_position: Vector2 = Vector2.ZERO
+
+const FINAL_SCENE: String = "res://scenes/final.tscn"
+
+var _transitioning: bool = false
 
 
 func _ready() -> void:
@@ -108,9 +114,17 @@ func _change_scene(target_scene: String, spawn_point_name: String, on_ready_call
 
 
 func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_callback: Callable) -> void:
+	if _transitioning:
+		return
+	_transitioning = true
+
+	await TransitionLayer.fade_out()
+
 	var new_scene_resource: PackedScene = load(target_scene)
 	if new_scene_resource == null:
 		push_error("SceneManager: failed to load scene at %s" % target_scene)
+		_transitioning = false
+		await TransitionLayer.fade_in()
 		return
 
 	var old_scene: Node = get_tree().current_scene
@@ -141,6 +155,17 @@ func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_c
 
 	on_ready_callback.call()
 
+	await TransitionLayer.fade_in()
+	_transitioning = false
+
+
+func go_to_final_scene() -> void:
+	await _change_scene(FINAL_SCENE, "PlayerSpawn", func():
+		var player := get_tree().get_first_node_in_group("player")
+		if player and player.has_method("enter_submarine"):
+			player.enter_submarine()
+	)
+
 
 func exit_submarine_to_water(submarine_depth: float, spawn_point_name: String = "PlayerSpawn") -> void:
 	var target_scene: String = get_scene_for_depth(submarine_depth)
@@ -152,19 +177,23 @@ func exit_submarine_to_water(submarine_depth: float, spawn_point_name: String = 
 	)
 
 
-func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn", allow_variant_swap: bool = false) -> void:
+func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn") -> void:
 	if not interior_rooms.has(room_name):
 		push_error("SceneManager: unknown room '%s'" % room_name)
 		return
 
 	var target_scene: String = interior_rooms[room_name]
-	SubmarineState.set_player_inside(true)
-	if room_name == "engine_room" and allow_variant_swap and engine_room_variants.size() > 1:
-		var choices: Array[String] = engine_room_variants.filter(func(s): return s != target_scene)
+
+	if room_name == "engine_room" and engine_room_variants.size() > 1 and randf() < engine_room_swap_chance:
+		var current_variant: String = interior_rooms["engine_room"]
+		var choices: Array[String] = []
+		for s in engine_room_variants:
+			if s != current_variant:
+				choices.append(s)
 		if choices.is_empty():
 			choices = engine_room_variants
 		target_scene = choices[randi() % choices.size()]
-		interior_rooms["engine_room"] = target_scene  
+		interior_rooms["engine_room"] = target_scene
 
 	await _change_scene(target_scene, spawn_point_name, func():
 		var player := get_tree().get_first_node_in_group("player")

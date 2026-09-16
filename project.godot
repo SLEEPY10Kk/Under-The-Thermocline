@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://cx03furrcrwyp"
 SubmarineState="*uid://v01cc5cp3oog"
+TransitionLayer="*uid://cl3mjeee0472v"
 
 [display]
 
