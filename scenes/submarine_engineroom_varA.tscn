@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://b0njyh15oaghx"]
+[gd_scene format=3 uid="uid://ct0hu8u6tc2ry"]
 
-[ext_resource type="Texture2D" uid="uid://cnef2df5h0gj5" path="res://assets/submarine-engineroom.png" id="1_cudy0"]
-[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_7hcf8"]
-[ext_resource type="Script" uid="uid://h8jri43iaf6h" path="res://scripts/door_to_mainroom.gd" id="3_7hcf8"]
-[ext_resource type="Texture2D" uid="uid://cyd32g0ahseui" path="res://assets/engineroom-O2.png" id="4_40quf"]
-[ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="4_d4ukq"]
-[ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="6_pjdp4"]
+[ext_resource type="Texture2D" uid="uid://bycu16xr25y78" path="res://assets/submarine-engineroom_varA.png" id="1_u8vhs"]
+[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_ifasp"]
+[ext_resource type="Script" uid="uid://h8jri43iaf6h" path="res://scripts/door_to_mainroom.gd" id="3_5dx1l"]
+[ext_resource type="Texture2D" uid="uid://cr3n0ellp26nd" path="res://assets/engineroom-O2_varA.png" id="4_18u58"]
+[ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="5_0px6s"]
+[ext_resource type="Texture2D" uid="uid://1v03qk141b8i" path="res://assets/engineroom-front_varA.png" id="6_84ieu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
 distance = -66.0
@@ -14,53 +14,53 @@ distance = -66.0
 radius = 18.0
 height = 62.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjdp4"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyb3x"]
+atlas = ExtResource("4_18u58")
 region = Rect2(0, 0, 60, 103)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qe7y1"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_re1n2"]
+atlas = ExtResource("4_18u58")
 region = Rect2(60, 0, 60, 103)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vrjpb"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq147"]
+atlas = ExtResource("4_18u58")
 region = Rect2(120, 0, 60, 103)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhtp7"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mcpw"]
+atlas = ExtResource("4_18u58")
 region = Rect2(180, 0, 60, 103)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3t44p"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl76s"]
+atlas = ExtResource("4_18u58")
 region = Rect2(240, 0, 60, 103)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5av4x"]
-atlas = ExtResource("4_40quf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sx5h"]
+atlas = ExtResource("4_18u58")
 region = Rect2(300, 0, 60, 103)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_d3qsn"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_x0b7o"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pjdp4")
+"texture": SubResource("AtlasTexture_nyb3x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qe7y1")
+"texture": SubResource("AtlasTexture_re1n2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vrjpb")
+"texture": SubResource("AtlasTexture_vq147")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qhtp7")
+"texture": SubResource("AtlasTexture_5mcpw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3t44p")
+"texture": SubResource("AtlasTexture_pl76s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5av4x")
+"texture": SubResource("AtlasTexture_7sx5h")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"default",
 "speed": 8.0
 }]
 
@@ -70,9 +70,9 @@ animations = [{
 
 [node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=1737694489]
 texture_filter = 1
-texture = ExtResource("1_cudy0")
+texture = ExtResource("1_u8vhs")
 
-[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_7hcf8")]
+[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_ifasp")]
 position = Vector2(580, 35)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
@@ -89,55 +89,53 @@ position = Vector2(579, 35)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1817921721]
 position = Vector2(618, 33)
-script = ExtResource("3_7hcf8")
+script = ExtResource("3_5dx1l")
 spawn_marker = "spawn_marker"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
 shape = SubResource("CapsuleShape2D_cudy0")
 
-[node name="Node" type="Node" parent="." unique_id=2137187008 groups=["engine_parts"]]
+[node name="Node" type="Node" parent="." unique_id=2137187008]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node" unique_id=686817767]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node" unique_id=807044183]
 texture_filter = 1
-position = Vector2(-172.315, -0.5)
-sprite_frames = SubResource("SpriteFrames_d3qsn")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.38830987
+position = Vector2(-172, 0)
+sprite_frames = SubResource("SpriteFrames_x0b7o")
+autoplay = "default"
+frame_progress = 0.614498
 
 [node name="Area2D2" type="Area2D" parent="Node" unique_id=695182155]
 position = Vector2(-172.315, 22.555)
-script = ExtResource("4_d4ukq")
+script = ExtResource("5_0px6s")
 part_name = "O2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D2" unique_id=286602123]
 scale = Vector2(2.765, 2.765)
 shape = SubResource("CircleShape2D_7hcf8")
 
-[node name="Node3" type="Node" parent="." unique_id=1841162136 groups=["engine_parts"]]
+[node name="Node3" type="Node" parent="." unique_id=1841162136]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node3" unique_id=658918921]
 texture_filter = 1
 position = Vector2(-75.83, -0.5)
-sprite_frames = SubResource("SpriteFrames_d3qsn")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.7868879
+sprite_frames = SubResource("SpriteFrames_x0b7o")
+autoplay = "default"
+frame_progress = 0.32274047
 
 [node name="Area2D2" type="Area2D" parent="Node3" unique_id=357645132]
 position = Vector2(-75.83, 22.555)
-script = ExtResource("4_d4ukq")
+script = ExtResource("5_0px6s")
 part_name = "O2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node3/Area2D2" unique_id=800933086]
 scale = Vector2(2.765, 2.765)
 shape = SubResource("CircleShape2D_7hcf8")
 
-[node name="Node2" type="Node" parent="." unique_id=1398615709 groups=["engine_parts"]]
+[node name="Node2" type="Node" parent="." unique_id=1398615709]
 
 [node name="Area2D2" type="Area2D" parent="Node2" unique_id=1387816017]
 position = Vector2(332.64, 26.1)
-script = ExtResource("4_d4ukq")
+script = ExtResource("5_0px6s")
 part_name = "PC"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2/Area2D2" unique_id=1736595338]
@@ -147,6 +145,6 @@ shape = SubResource("CircleShape2D_7hcf8")
 [node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
 z_index = 2
 texture_filter = 1
-texture = ExtResource("6_pjdp4")
+texture = ExtResource("6_84ieu")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

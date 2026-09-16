@@ -18,7 +18,7 @@ var _zones_generated: bool = false
 
 var engine_room_variants: Array[String] = [
 	"res://scenes/submarine_engineroom.tscn",
-	"res://scenes/submarine_engineroom_variant_b.tscn",
+	"res://scenes/submarine_engineroom_varA.tscn",
 	"res://scenes/submarine_engineroom_variant_c.tscn",
 ]
 
@@ -144,6 +144,7 @@ func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_c
 
 func exit_submarine_to_water(submarine_depth: float, spawn_point_name: String = "PlayerSpawn") -> void:
 	var target_scene: String = get_scene_for_depth(submarine_depth)
+	SubmarineState.set_player_inside(false)
 	await _change_scene(target_scene, spawn_point_name, func():
 		var player := get_tree().get_first_node_in_group("player")
 		if player and player.has_method("exit_submarine"):
@@ -157,7 +158,7 @@ func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn", all
 		return
 
 	var target_scene: String = interior_rooms[room_name]
-
+	SubmarineState.set_player_inside(true)
 	if room_name == "engine_room" and allow_variant_swap and engine_room_variants.size() > 1:
 		var choices: Array[String] = engine_room_variants.filter(func(s): return s != target_scene)
 		if choices.is_empty():

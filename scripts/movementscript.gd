@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var move_speed: float = 200.0
+@export var move_speed: float = 75.0
 @export var swim_speed: float = 150.0
 @export var gravity: float = 800.0
 @export var jump_force: float = -300.0
