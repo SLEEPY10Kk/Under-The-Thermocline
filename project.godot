@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 SceneManager="*uid://cx03furrcrwyp"
 SubmarineState="*uid://v01cc5cp3oog"
 TransitionLayer="*uid://cl3mjeee0472v"
+PromptUi="*uid://d3ltfd2w3nk6i"
 
 [display]
 

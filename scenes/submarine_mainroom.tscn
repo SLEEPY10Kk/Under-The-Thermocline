@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_2oqxe"]
 [ext_resource type="Script" uid="uid://bry8nih1uq60w" path="res://scripts/door_to_engineroom.gd" id="3_2oqxe"]
 [ext_resource type="Script" uid="uid://nejqpxo18jau" path="res://scripts/door_to_water.gd" id="4_twjkf"]
+[ext_resource type="Script" uid="uid://c8w8fqdsubvcd" path="res://scripts/depth.gd" id="5_uw886"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ofrkc"]
 distance = -67.0
@@ -11,6 +12,10 @@ distance = -67.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ofrkc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uw886"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_twjkf"]
+font_size = 8
+font_color = Color(0, 0.7254902, 0.74509805, 1)
 
 [node name="Main" type="Node2D" unique_id=1182824493]
 
@@ -48,5 +53,13 @@ exit_spawn_position = "Depth"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=2018133109]
 shape = SubResource("CapsuleShape2D_uw886")
+
+[node name="Depth" type="Label" parent="." unique_id=1087593535]
+offset_left = -64.0
+offset_top = -56.0
+offset_bottom = -44.0
+text = "DEPTH : "
+label_settings = SubResource("LabelSettings_twjkf")
+script = ExtResource("5_uw886")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

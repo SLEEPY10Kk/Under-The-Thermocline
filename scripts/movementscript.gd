@@ -38,8 +38,10 @@ func _handle_swim_movement(delta: float) -> void:
 func enter_submarine() -> void:
 	in_submarine = true
 	velocity = Vector2.ZERO
+	PromptUi.show_temporary("A / D to walk")
 
 
 func exit_submarine() -> void:
 	in_submarine = false
 	velocity = Vector2.ZERO
+	PromptUi.show_temporary("WASD to swim")

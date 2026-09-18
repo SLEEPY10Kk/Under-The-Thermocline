@@ -1,7 +1,7 @@
 extends Node
 
-@export var engine_room_swap_chance: float = 0.4 
-
+@export var engine_room_swap_chance: float = 0.2 
+@export var engine_room_variant_min_depth: float = 5000.0
 
 const NUM_ZONES: int = 4
 const FIXED_FINAL_DEPTH: float = 10000.0
@@ -152,6 +152,7 @@ func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_c
 				push_warning("SceneManager: no node in group 'player' found to reposition.")
 			else:
 				player.global_position = spawn_point.global_position
+				PromptUi.attach_to_player(player)
 
 	on_ready_callback.call()
 
@@ -184,7 +185,9 @@ func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn") -> 
 
 	var target_scene: String = interior_rooms[room_name]
 
-	if room_name == "engine_room" and engine_room_variants.size() > 1 and randf() < engine_room_swap_chance:
+	var past_variant_depth: bool = SubmarineState.depth >= engine_room_variant_min_depth
+
+	if room_name == "engine_room" and past_variant_depth and engine_room_variants.size() > 1 and randf() < engine_room_swap_chance:
 		var current_variant: String = interior_rooms["engine_room"]
 		var choices: Array[String] = []
 		for s in engine_room_variants:

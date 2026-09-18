@@ -5,6 +5,7 @@ extends Area2D
 var _nearby: Array[Interactable] = []
 var _current: Interactable = null
 
+signal current_changed(interactable: Interactable)
 
 func _ready() -> void:
 	pass
@@ -48,6 +49,9 @@ func _update_closest() -> void:
 		_current = closest
 		if _current:
 			_current.set_highlighted(true)
+			PromptUi.show_interact_prompt("Press E to " + _current.prompt_text)
+		else:
+			PromptUi.hide_interact_prompt()
 
 
 func get_current_interactable() -> Interactable:

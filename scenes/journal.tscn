@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dd6bl2jvmnteb"]
+
+[ext_resource type="Texture2D" uid="uid://es6oy7eqd176" path="res://assets/book.png" id="1_5bwne"]
+
+[node name="Main" type="Node2D" unique_id=1744141244]
+
+[node name="Book" type="Sprite2D" parent="." unique_id=1625452754]
+texture_filter = 1
+texture = ExtResource("1_5bwne")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=742547191]
+zoom = Vector2(6, 6)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1776000665]
+energy = 0.44
+blend_mode = 1
+
+[node name="Left_Page" type="RichTextLabel" parent="." unique_id=1181589722]
+top_level = true
+offset_left = -73.0
+offset_top = -54.0
+offset_right = -6.0
+offset_bottom = 53.0
+
+[node name="Right_Page" type="RichTextLabel" parent="." unique_id=1851961576]
+top_level = true
+offset_left = 6.0
+offset_top = -54.0
+offset_right = 73.0
+offset_bottom = 53.0

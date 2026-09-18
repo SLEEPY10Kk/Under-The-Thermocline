@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://s51r3lx65ird"]
+
+[ext_resource type="Script" uid="uid://q76p3kvf60v5" path="res://scripts/qte.gd" id="1_tmbk4"]
+[ext_resource type="Texture2D" uid="uid://gp4qco1uy3md" path="res://assets/qte_ring.png" id="2_1k5uo"]
+[ext_resource type="Texture2D" uid="uid://b0rym2051en54" path="res://assets/qte_pointer.png" id="3_e5op3"]
+[ext_resource type="Texture2D" uid="uid://d3pt1f5ms7k33" path="res://assets/qte_indicator.png" id="4_impyq"]
+
+[node name="Qte" type="Control" unique_id=1690941811]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tmbk4")
+ring_texture = ExtResource("2_1k5uo")
+pointer_texture = ExtResource("3_e5op3")
+target_texture = ExtResource("4_impyq")
