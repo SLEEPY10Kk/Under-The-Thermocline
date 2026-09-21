@@ -3,19 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://bf0o6ydnabye6" path="res://assets/submarine-mainroom.png" id="1_ofrkc"]
 [ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_2oqxe"]
 [ext_resource type="Script" uid="uid://bry8nih1uq60w" path="res://scripts/door_to_engineroom.gd" id="3_2oqxe"]
-[ext_resource type="Script" uid="uid://nejqpxo18jau" path="res://scripts/door_to_water.gd" id="4_twjkf"]
 [ext_resource type="Script" uid="uid://c8w8fqdsubvcd" path="res://scripts/depth.gd" id="5_uw886"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ofrkc"]
-distance = -67.0
+[ext_resource type="AudioStream" uid="uid://mrskn1nouvo8" path="res://audio/search.wav" id="6_aeugw"]
+[ext_resource type="Script" uid="uid://ltenanrk4jp7" path="res://scripts/salvage_station.gd" id="6_k3at2"]
+[ext_resource type="AudioStream" uid="uid://bcrbiquqgm8p2" path="res://audio/found.wav" id="7_xlkoe"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ofrkc"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uw886"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_twjkf"]
 font_size = 8
 font_color = Color(0, 0.7254902, 0.74509805, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uw886"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_uw886"]
+b = Vector2(0, 40)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ofrkc"]
+distance = -67.0
 
 [node name="Main" type="Node2D" unique_id=1182824493]
 
@@ -24,35 +29,22 @@ texture_filter = 1
 texture = ExtResource("1_ofrkc")
 
 [node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_2oqxe")]
-position = Vector2(-7.1054274e-15, 53.999996)
+position = Vector2(-40, 50)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1315684197]
-position = Vector2(0, 5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2096653715]
-shape = SubResource("WorldBoundaryShape2D_ofrkc")
-
-[node name="Area2D" type="Area2D" parent="." unique_id=2087500822]
+[node name="door_to_engineroom" type="Area2D" parent="." unique_id=2087500822]
 position = Vector2(-75.32, 53.985)
 script = ExtResource("3_2oqxe")
 spawn_marker = "spawn_marker"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1667250468]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door_to_engineroom" unique_id=1667250468]
+position = Vector2(-14.68, -3.9850006)
 shape = SubResource("CapsuleShape2D_ofrkc")
 
 [node name="spawn_marker" type="Marker2D" parent="." unique_id=326746212]
-position = Vector2(-46, 55)
+position = Vector2(-27, 50)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=903665299]
 zoom = Vector2(6, 6)
-
-[node name="Area2D2" type="Area2D" parent="." unique_id=84353391]
-position = Vector2(77, 53)
-script = ExtResource("4_twjkf")
-exit_spawn_position = "Depth"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=2018133109]
-shape = SubResource("CapsuleShape2D_uw886")
 
 [node name="Depth" type="Label" parent="." unique_id=1087593535]
 offset_left = -64.0
@@ -62,4 +54,29 @@ text = "DEPTH : "
 label_settings = SubResource("LabelSettings_twjkf")
 script = ExtResource("5_uw886")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[node name="SalvageStation" type="Area2D" parent="." unique_id=1561441349]
+script = ExtResource("6_k3at2")
+search_sound = ExtResource("6_aeugw")
+found_sound = ExtResource("7_xlkoe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalvageStation" unique_id=274317973]
+position = Vector2(0, 52)
+shape = SubResource("CircleShape2D_uw886")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SalvageStation" unique_id=2145865614]
+
+[node name="Borders" type="Node" parent="." unique_id=278406776]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders" unique_id=182199665]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2" unique_id=1685052248]
+position = Vector2(80, 29)
+shape = SubResource("SegmentShape2D_uw886")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=1315684197]
+position = Vector2(0, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=2096653715]
+shape = SubResource("WorldBoundaryShape2D_ofrkc")
+
+[connection signal="body_entered" from="door_to_engineroom" to="door_to_engineroom" method="_on_body_entered"]

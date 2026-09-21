@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cd6q8l07or2x2"]
+
+[ext_resource type="Script" uid="uid://dkd31mn32gfcp" path="res://scripts/journal.gd" id="1_4hwvv"]
+[ext_resource type="Texture2D" uid="uid://es6oy7eqd176" path="res://assets/book.png" id="2_v7do5"]
+[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="3_hava6"]
+[ext_resource type="Script" uid="uid://ct4wndqn3a2eg" path="res://scripts/book_back.gd" id="4_v7do5"]
+
+[sub_resource type="Theme" id="Theme_ll4rq"]
+default_font = ExtResource("3_hava6")
+
+[sub_resource type="Theme" id="Theme_pelrk"]
+default_font = ExtResource("3_hava6")
+
+[node name="Main" type="Node2D" unique_id=1744141244]
+script = ExtResource("1_4hwvv")
+pages = Array[String](["something is definitely wrong here , now it might just be a placebo with shawn and ben following suit with robert and his \"mind convolution\" and", "fear its effectiving me somehow i dont know if this is the most applied case of mass hysteria ive ever seen or some shit else because", "i dont really know but tthe thing is , to be honest if i think more about the convolution, it gets clearer? but for each person its different robert feels", " as his ADHD symptoms have gone haywire like its never have before and he swears its new , Ben says he has no thoughts , his monologue ", " \"is dead somehow\" in his own words.I really do still think roberts first change is whats causing all this but ITS ROBERT HE'S ALWAYS BEEN ERRATIC, that just how he is....right?", "I swear , no like genuinely i swear ive been through this day YESTERDAY , its not even like because of monotonity , I SAW THE SAME FISH WITH THE SAME ", " RIGHT FIN SCAR SWIM BY THE MONITOR IN THE SAME PATTERN AT THE SAME TIME IT DID YESTERDAY, robert and ben hell nobody feels it.", " its like im experiencing Deja vu BUT ITSREAL, no like i actually genuienly swear its real.im just in my room writing this stuff down because", "THE SAME PRESSURE VALVE FROM YESTERDAY STARTED LEAKING AND AS SOON AS I WAS SURE THAT THIS SHIT IS CRAZY AND REAL, it stopped?", " no like its stabilising the more i think about it? what the fuck am i even talking about , i dont know , its getting hard to think.", "we are approaching the hadal zone, and there is no marine life around us anymore , either we are the most unlucky group ever or the mind fuck shit got to them aswell lmao.", " i still dont know what happened that day, and the weird shit hasnt stopped at all , kaiden still insists the navigator is broken , now more than before according to him,", " and i starting to beloieve him after that day that something is wrong and robert too, he's more silent , unusually silent, he says he's just thinking ", "but he seems more exhauted than ever before and so are shawn and ben but I stilll get those \"deja vu\" days and its gotten more frequent and", "he gets better the more i think about it somehow , its like it stabilises? maybe the monotony is getting to me but this is different, i can see its real like", " i swear i really dont know how to describe it. anyways its getting over soon."])
+font_size = 6
+text_box_size = Vector2(100, 120)
+text_box_offset = Vector2(-52, -64)
+
+[node name="Book" type="Sprite2D" parent="." unique_id=1625452754]
+texture_filter = 1
+texture = ExtResource("2_v7do5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=742547191]
+zoom = Vector2(6, 6)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1776000665]
+energy = 0.44
+blend_mode = 1
+
+[node name="TextLabel" type="RichTextLabel" parent="." unique_id=1851961576]
+offset_right = 1.0
+theme = SubResource("Theme_ll4rq")
+metadata/_edit_use_anchors_ = true
+
+[node name="NextButton" type="Button" parent="." unique_id=1973126864]
+offset_left = 19.0
+offset_top = 54.0
+offset_right = 78.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Next Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="PrevButton" type="Button" parent="." unique_id=165771199]
+offset_left = -78.0
+offset_top = 54.0
+offset_right = -19.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Prev Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="." unique_id=776073978]
+offset_left = -78.0
+offset_top = -70.0
+offset_right = -46.0
+offset_bottom = -54.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Back"
+script = ExtResource("4_v7do5")
+metadata/_edit_use_anchors_ = true

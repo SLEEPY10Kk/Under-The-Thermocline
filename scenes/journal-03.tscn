@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://djox5sc2hf3e1"]
+
+[ext_resource type="Script" uid="uid://dkd31mn32gfcp" path="res://scripts/journal.gd" id="1_p1blo"]
+[ext_resource type="Texture2D" uid="uid://es6oy7eqd176" path="res://assets/book.png" id="2_4y7dq"]
+[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="3_su2mc"]
+[ext_resource type="Script" uid="uid://ct4wndqn3a2eg" path="res://scripts/book_back.gd" id="4_4y7dq"]
+
+[sub_resource type="Theme" id="Theme_ll4rq"]
+default_font = ExtResource("3_su2mc")
+
+[sub_resource type="Theme" id="Theme_pelrk"]
+default_font = ExtResource("3_su2mc")
+
+[node name="Main" type="Node2D" unique_id=1744141244]
+script = ExtResource("1_p1blo")
+pages = Array[String](["i really really want to leave ,its imploding okay oh my god , my head hurts so much and sleep doesnt fix it nor anything else AND EVERYONE ELSE IS THE SAME ", " but we've realised one thing is that the more we think about it , the lesser it hurts or like i thought before stabilies , i really dont know what the fuck is going on.", "THERE'S A DOOR HERE WHAT , NODOY HAS EVER SEEN THIS DOOR BEFORE AND IN NO WAY WOULD ANYONE HAVE MISSED IT WHY IS THAT HERE ,", " WHAT THE ACTUAL FUCK, oh my god , we tried opening it but it wouldnt budge. we are throughly convinced some shit is wrong here ", " and we reallly dont have any faintest idea of what, maybe we should study this instead.", "Well, we are fucked . the depth level shows that we are apparently 14000 meters below sea lvevel , that shouldnt even be possible , THE MARIANA TRECNH", " IS 11000 meters AT MAX and its gone, the door, the more we study it , more parts of it started disappearing as if us studying and thinking about it caused it to go away.", " what the fuck man. we arent staying here , we have alreafy started our ascent  ", "we're going down, no matter what we do WE KEEP GOING DOWN , THE DOOR IS BACK , I CANT THINK , NODOBOY CAN BUT WE KNOW IT ", "GETS BETTER THE MORE OUR CONSCIOUSNESS IS ACTIVE AND CLEAR BUT HOW I CAN NOT DO JACKSHIT BEFORE FEELING LIKE", "MY MIND IS GOING TO IMPLODE ALL OVER AGAIN ITS SO MUCH WORSE , BEN ISNT RESPONDING LIKE HE'S IN A COMA , NO MATTER WHAT WE DO WE CANT SEEM TO GO UP", "THE DEPTH LEVEL IS COMPLETELY DISTORTED AND I DONT KNOW JIWHJEIO", "it's over, whatever this is , at the bottom, its coming into this world from somewhere , we dont know what it is . my head hurts like hell,", " everyone's killed themselves and my acceptance of that is displeasurable ,these memories of a different world are haunting but they seem familiar", " but they're too much, way too much. this place's temporal anomalies , im only aware because of the anomalies, i know what it is but i dont", "the more i think of it the more it stabilises like the lack of conscious thought amplifies it , i dont know how much i can keep this up.", " im sending these out as warnings but i dont know if they are neccesary. my head hurts."])
+font_size = 6
+text_box_size = Vector2(100, 120)
+text_box_offset = Vector2(-52, -64)
+
+[node name="Book" type="Sprite2D" parent="." unique_id=1625452754]
+texture_filter = 1
+texture = ExtResource("2_4y7dq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=742547191]
+zoom = Vector2(6, 6)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1776000665]
+energy = 0.44
+blend_mode = 1
+
+[node name="TextLabel" type="RichTextLabel" parent="." unique_id=1851961576]
+offset_right = 1.0
+theme = SubResource("Theme_ll4rq")
+metadata/_edit_use_anchors_ = true
+
+[node name="NextButton" type="Button" parent="." unique_id=1973126864]
+offset_left = 19.0
+offset_top = 54.0
+offset_right = 78.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Next Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="PrevButton" type="Button" parent="." unique_id=165771199]
+offset_left = -78.0
+offset_top = 54.0
+offset_right = -19.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Prev Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="." unique_id=776073978]
+offset_left = -78.0
+offset_top = -70.0
+offset_right = -46.0
+offset_bottom = -54.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Back"
+script = ExtResource("4_4y7dq")
+metadata/_edit_use_anchors_ = true

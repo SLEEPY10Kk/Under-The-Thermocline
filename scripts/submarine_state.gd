@@ -1,30 +1,56 @@
 extends Node
 
 signal part_broken(part_id: String)
+signal depth_changed(new_depth: float)
+signal salvage_available_changed(available: bool)
 
+@export var part_broken_sound: AudioStream
+@export var descent_stopped_sound: AudioStream
+@export var descent_resumed_sound: AudioStream
 @export var depth: float = 0.0
-@export var descent_rate: float = 20.0
-@export var milestone_interval: float = 500.0
+@export var descent_rate: float = 100.0
+@export var milestone_interval: float = 1000.0
 @export var break_chance: float = 0.35
+
+@onready var _sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
+
+var qte_active: bool = false
+var salvage_available: bool = false
+var halted_at_boundary: bool = false
+var pending_salvage_zone_index: int = -1
+var in_main_room: bool = false
+var reading_note: bool = false
 
 var all_part_ids: Array[String] = [
 	"coolant_pump",
-	#"ballast_pump",
-	#"air_compressor",
-	#"co2_scrubber",
-	#"drive_shaft",
-	#"hydraulic_line",
-	#"bilge_pump",
-	#"emergency_blow_valve",
+	"air_compressor",
+	"emergency_blow_valve",
+	"wiring",
 ]
-
+var part_display_names: Dictionary = {
+	"coolant_pump": "Coolant Pump",
+	"air_compressor": "Air Compressor",
+	"emergency_blow_valve": "Emergency Blow Valve",
+	"wiring": "Wiring",
+}
 var broken_part_ids: Array[String] = []
-var player_inside: bool = true
+var player_inside: bool = false
 var _last_milestone_checked: float = 0.0
 
 const MAX_DEPTH: float = 10000.0
 
 var reached_bottom: bool = false
+
+func _ready() -> void:
+	add_child(_sfx_player)
+	part_broken.connect(_on_part_broken)
+
+
+func _on_part_broken(part_id: String) -> void:
+	var display_name: String = part_display_names.get(part_id, part_id)
+	PromptUi.show_temporary(display_name + " broke!")
+	_play_sfx(part_broken_sound)
+
 
 func _process(delta: float) -> void:
 	if can_descend():
@@ -33,7 +59,7 @@ func _process(delta: float) -> void:
 
 
 func can_descend() -> bool:
-	return player_inside and not is_submarine_broken() and not reached_bottom
+	return in_main_room and not is_submarine_broken() and not reached_bottom and not halted_at_boundary and not reading_note
 
 
 func is_submarine_broken() -> bool:
@@ -44,8 +70,17 @@ func set_player_inside(value: bool) -> void:
 	player_inside = value
 
 
+func set_in_main_room(value: bool) -> void:
+	in_main_room = value
+
+
+func set_reading_note(value: bool) -> void:
+	reading_note = value
+
+
 func set_depth(value: float) -> void:
 	depth = clamp(value, 0.0, MAX_DEPTH)
+	depth_changed.emit(depth)
 	_check_milestones()
 
 	if depth >= MAX_DEPTH and not reached_bottom:
@@ -80,9 +115,7 @@ func mark_broken(part_id: String) -> void:
 	if broken_part_ids.has(part_id):
 		return
 	broken_part_ids.append(part_id)
-	print("BROKE: ", part_id)
 	part_broken.emit(part_id)
-
 	_sync_live_part(part_id, true)
 
 
@@ -94,4 +127,33 @@ func mark_repaired(part_id: String) -> void:
 func _sync_live_part(part_id: String, broken: bool) -> void:
 	for p in get_tree().get_nodes_in_group("engine_parts"):
 		if p is EnginePart and p.part_id == part_id:
-			p.is_broken = broken
+			p.set_broken(broken)
+
+
+func set_qte_active(value: bool) -> void:
+	qte_active = value
+
+
+func halt_at_boundary(zone_index: int) -> void:
+	halted_at_boundary = true
+	pending_salvage_zone_index = zone_index
+	set_salvage_available(true)
+	_play_sfx(descent_stopped_sound)
+
+
+func resume_descent() -> void:
+	halted_at_boundary = false
+	pending_salvage_zone_index = -1
+	set_salvage_available(false)
+	_play_sfx(descent_resumed_sound)
+
+
+func set_salvage_available(value: bool) -> void:
+	salvage_available = value
+	salvage_available_changed.emit(value)
+
+
+func _play_sfx(stream: AudioStream) -> void:
+	if stream:
+		_sfx_player.stream = stream
+		_sfx_player.play()

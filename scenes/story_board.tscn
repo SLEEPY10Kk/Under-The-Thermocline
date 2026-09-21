@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://dpl5u8bwj878b"]
+
+[ext_resource type="Texture2D" uid="uid://80y0u7nm0842" path="res://assets/StoryBoard.png" id="1_pjdu6"]
+[ext_resource type="Script" uid="uid://gfo28emt2kq1" path="res://scripts/jounal_background.gd" id="2_ngj8s"]
+[ext_resource type="Script" uid="uid://lnq22kutnaa5" path="res://scripts/journal_entry.gd" id="3_c48iu"]
+[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="4_lthm7"]
+[ext_resource type="Script" uid="uid://cqygjt3r821a4" path="res://scripts/back_to_engine.gd" id="5_sf6s8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngj8s"]
+atlas = ExtResource("1_pjdu6")
+region = Rect2(0, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c48iu"]
+atlas = ExtResource("1_pjdu6")
+region = Rect2(160, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lthm7"]
+atlas = ExtResource("1_pjdu6")
+region = Rect2(320, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf6s8"]
+atlas = ExtResource("1_pjdu6")
+region = Rect2(480, 0, 160, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0mtrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngj8s")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c48iu")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lthm7")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf6s8")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ngj8s"]
+radius = 13.0
+height = 34.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngj8s"]
+size = Vector2(31, 34)
+
+[sub_resource type="Theme" id="Theme_sf6s8"]
+default_font = ExtResource("4_lthm7")
+
+[node name="StoryBoard" type="Node2D" unique_id=312609719]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1262611312]
+zoom = Vector2(6, 6)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1337183512]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0mtrr")
+animation = &"0"
+script = ExtResource("2_ngj8s")
+
+[node name="Notes" type="Node" parent="." unique_id=1304543350]
+
+[node name="3" type="Area2D" parent="Notes" unique_id=1378992006]
+script = ExtResource("3_c48iu")
+book_id = "note3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Notes/3" unique_id=998520318]
+position = Vector2(57, 44)
+shape = SubResource("CapsuleShape2D_ngj8s")
+
+[node name="2" type="Area2D" parent="Notes" unique_id=1125400747]
+script = ExtResource("3_c48iu")
+book_id = "note2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Notes/2" unique_id=1488867365]
+position = Vector2(8, -18)
+shape = SubResource("CapsuleShape2D_ngj8s")
+
+[node name="1" type="Area2D" parent="Notes" unique_id=2046656498]
+script = ExtResource("3_c48iu")
+book_id = "note1"
+note_title = "What's under there?"
+note_text = "a big scary boo boo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Notes/1" unique_id=1405290718]
+position = Vector2(-57, -53)
+shape = SubResource("CapsuleShape2D_ngj8s")
+
+[node name="Books" type="Node" parent="." unique_id=2019961076]
+
+[node name="1" type="Area2D" parent="Books" unique_id=781618946]
+script = ExtResource("3_c48iu")
+content_type = 0
+target_scene = "res://scenes/journal.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Books/1" unique_id=1335342866]
+position = Vector2(47.5, -42)
+shape = SubResource("RectangleShape2D_ngj8s")
+
+[node name="2" type="Area2D" parent="Books" unique_id=1895099493]
+script = ExtResource("3_c48iu")
+book_id = "book_2"
+content_type = 0
+target_scene = "res://scenes/journal-02.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Books/2" unique_id=1682699822]
+position = Vector2(-23, -48)
+shape = SubResource("RectangleShape2D_ngj8s")
+
+[node name="3" type="Area2D" parent="Books" unique_id=293669039]
+position = Vector2(-23, -48)
+script = ExtResource("3_c48iu")
+book_id = "book_3"
+content_type = 0
+target_scene = "res://scenes/journal-03.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Books/3" unique_id=1931798469]
+position = Vector2(-21, 59)
+shape = SubResource("RectangleShape2D_ngj8s")
+
+[node name="Button" type="Button" parent="." unique_id=947402194]
+offset_left = -71.0
+offset_top = 46.0
+offset_right = -39.0
+offset_bottom = 62.0
+theme = SubResource("Theme_sf6s8")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Back"
+script = ExtResource("5_sf6s8")

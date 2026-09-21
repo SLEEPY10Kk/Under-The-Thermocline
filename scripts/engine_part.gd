@@ -8,6 +8,8 @@ signal repaired
 @export var engine_room_swap_chance: float = 0.3
 @export var qte_scene: PackedScene = preload("res://scenes/qte.tscn")
 
+@onready var _sprite: AnimatedSprite2D = get_node_or_null("../AnimatedSprite2D") as AnimatedSprite2D
+
 var is_broken: bool = false
 var _qte_active: bool = false
 
@@ -15,7 +17,9 @@ var _qte_active: bool = false
 func _ready() -> void:
 	add_to_group("engine_parts")
 	prompt_text = "Repair " + part_name
+	SubmarineState.part_display_names[part_id] = part_name
 	is_broken = SubmarineState.broken_part_ids.has(part_id)
+	_update_sprite()
 
 
 func can_interact() -> bool:
@@ -26,30 +30,57 @@ func interact(player: Node) -> void:
 	_start_qte()
 
 
+func set_broken(value: bool) -> void:
+	is_broken = value
+	_update_sprite()
+
+
+func _update_sprite() -> void:
+	if not _sprite:
+		push_warning("EnginePart: no AnimatedSprite2D found for %s" % name)
+		return
+	_sprite.play("broken" if is_broken else "fine")
+
+
 func _start_qte() -> void:
 	_qte_active = true
+	SubmarineState.set_qte_active(true)
+	PromptUi.show_interact_prompt("Press W")
+
+	var layer := CanvasLayer.new()
+	layer.layer = 90
+	get_tree().current_scene.add_child(layer)
+
 	var qte := qte_scene.instantiate()
-	get_tree().current_scene.add_child(qte)
-	qte.global_position = get_viewport().get_visible_rect().size / 2.0 - qte.size / 2.0
+	layer.add_child(qte)
 
-	qte.succeeded.connect(_on_qte_succeeded.bind(qte))
-	qte.failed.connect(_on_qte_failed.bind(qte))
+	await get_tree().process_frame
+	qte.position = get_viewport().get_visible_rect().size / 2.0 - qte.size / 2.0
+
+	qte.succeeded.connect(_on_qte_succeeded.bind(qte, layer))
+	qte.failed.connect(_on_qte_failed.bind(qte, layer))
 
 
-func _on_qte_succeeded(qte: Node) -> void:
-	qte.queue_free()
+func _on_qte_succeeded(qte: Node, layer: Node) -> void:
+	layer.queue_free()
 	_qte_active = false
+	SubmarineState.set_qte_active(false)
+	PromptUi.hide_interact_prompt()
 	_do_repair()
 
 
-func _on_qte_failed(qte: Node) -> void:
-	qte.queue_free()
+func _on_qte_failed(qte: Node, layer: Node) -> void:
+	layer.queue_free()
 	_qte_active = false
+	SubmarineState.set_qte_active(false)
+	PromptUi.hide_interact_prompt()
 
 
 func _do_repair() -> void:
 	SubmarineState.mark_repaired(part_id)
-	is_broken = false
+	set_broken(false)
 	repaired.emit()
 	set_highlighted(false)
-	SceneManager.go_to_room("engine_room", "PlayerSpawn")
+
+	if randf() < engine_room_swap_chance:
+		SceneManager.go_to_room("engine_room", "PlayerSpawn")

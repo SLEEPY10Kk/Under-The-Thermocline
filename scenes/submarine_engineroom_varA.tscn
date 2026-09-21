@@ -1,18 +1,13 @@
 [gd_scene format=3 uid="uid://ct0hu8u6tc2ry"]
 
 [ext_resource type="Texture2D" uid="uid://bycu16xr25y78" path="res://assets/submarine-engineroom_varA.png" id="1_u8vhs"]
-[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_ifasp"]
-[ext_resource type="Script" uid="uid://h8jri43iaf6h" path="res://scripts/door_to_mainroom.gd" id="3_5dx1l"]
 [ext_resource type="Texture2D" uid="uid://cr3n0ellp26nd" path="res://assets/engineroom-O2_varA.png" id="4_18u58"]
-[ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="5_0px6s"]
+[ext_resource type="Script" uid="uid://cfdktq313uppd" path="res://scripts/movementscript.gd" id="5_5dx1l"]
+[ext_resource type="Script" uid="uid://br8llpr3s05im" path="res://scripts/storyboardvarA.gd" id="5_13hwe"]
+[ext_resource type="Texture2D" uid="uid://j4uam7wgyoo1" path="res://assets/idle_varA.png" id="6_18u58"]
 [ext_resource type="Texture2D" uid="uid://1v03qk141b8i" path="res://assets/engineroom-front_varA.png" id="6_84ieu"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
-distance = -66.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cudy0"]
-radius = 18.0
-height = 62.0
+[ext_resource type="Texture2D" uid="uid://mv5g3t6un1c6" path="res://assets/walk_varA.png" id="7_0px6s"]
+[ext_resource type="Script" uid="uid://bl3bytlbhvtgv" path="res://scripts/interaction_area.gd" id="8_84ieu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nyb3x"]
 atlas = ExtResource("4_18u58")
@@ -64,7 +59,147 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7hcf8"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
+distance = -66.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_13hwe"]
+b = Vector2(0, 55)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_u8vhs"]
+b = Vector2(0, 66)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tungg"]
+radius = 52.086468
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0b7o"]
+atlas = ExtResource("6_18u58")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypr73"]
+atlas = ExtResource("6_18u58")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ong2n"]
+atlas = ExtResource("6_18u58")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_watnn"]
+atlas = ExtResource("6_18u58")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8abcj"]
+atlas = ExtResource("6_18u58")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iws8u"]
+atlas = ExtResource("6_18u58")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8csho"]
+atlas = ExtResource("6_18u58")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gncu"]
+atlas = ExtResource("6_18u58")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6i2p"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eloeg"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktl42"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kbl4"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdus7"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrpej"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6e6n"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5ep1"]
+atlas = ExtResource("7_0px6s")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwduf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0b7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypr73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ong2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_watnn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8abcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iws8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8csho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gncu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6i2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eloeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktl42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kbl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdus7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrpej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6e6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5ep1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhbv5"]
+size = Vector2(10, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pqap4"]
 
 [node name="Main" type="Node2D" unique_id=946437971]
 
@@ -72,28 +207,8 @@ animations = [{
 texture_filter = 1
 texture = ExtResource("1_u8vhs")
 
-[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_ifasp")]
-position = Vector2(580, 35)
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
-position = Vector2(0, -40.645)
-zoom = Vector2(6, 6)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=133853300]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1129879305]
-shape = SubResource("WorldBoundaryShape2D_d4ukq")
-
 [node name="spawn_marker" type="Marker2D" parent="." unique_id=1996032913]
 position = Vector2(579, 35)
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1817921721]
-position = Vector2(618, 33)
-script = ExtResource("3_5dx1l")
-spawn_marker = "spawn_marker"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
-shape = SubResource("CapsuleShape2D_cudy0")
 
 [node name="Node" type="Node" parent="." unique_id=2137187008]
 
@@ -104,15 +219,6 @@ sprite_frames = SubResource("SpriteFrames_x0b7o")
 autoplay = "default"
 frame_progress = 0.614498
 
-[node name="Area2D2" type="Area2D" parent="Node" unique_id=695182155]
-position = Vector2(-172.315, 22.555)
-script = ExtResource("5_0px6s")
-part_name = "O2"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D2" unique_id=286602123]
-scale = Vector2(2.765, 2.765)
-shape = SubResource("CircleShape2D_7hcf8")
-
 [node name="Node3" type="Node" parent="." unique_id=1841162136]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node3" unique_id=658918921]
@@ -122,29 +228,62 @@ sprite_frames = SubResource("SpriteFrames_x0b7o")
 autoplay = "default"
 frame_progress = 0.32274047
 
-[node name="Area2D2" type="Area2D" parent="Node3" unique_id=357645132]
-position = Vector2(-75.83, 22.555)
-script = ExtResource("5_0px6s")
-part_name = "O2"
+[node name="Borders" type="Node" parent="." unique_id=1398615709]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node3/Area2D2" unique_id=800933086]
-scale = Vector2(2.765, 2.765)
-shape = SubResource("CircleShape2D_7hcf8")
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=133853300]
 
-[node name="Node2" type="Node" parent="." unique_id=1398615709]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=1129879305]
+shape = SubResource("WorldBoundaryShape2D_d4ukq")
 
-[node name="Area2D2" type="Area2D" parent="Node2" unique_id=1387816017]
-position = Vector2(332.64, 26.1)
-script = ExtResource("5_0px6s")
-part_name = "PC"
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders" unique_id=533212300]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2/Area2D2" unique_id=1736595338]
-scale = Vector2(2.92, 2.92)
-shape = SubResource("CircleShape2D_7hcf8")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2" unique_id=395445668]
+position = Vector2(613, 5)
+shape = SubResource("SegmentShape2D_13hwe")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Borders" unique_id=1008231829]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D3" unique_id=1148645283]
+position = Vector2(-607, -5)
+shape = SubResource("SegmentShape2D_u8vhs")
 
 [node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
 z_index = 2
 texture_filter = 1
 texture = ExtResource("6_84ieu")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[node name="Area2D" type="Area2D" parent="." unique_id=388287778]
+script = ExtResource("5_13hwe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1564181591]
+position = Vector2(-526, 13)
+shape = SubResource("CircleShape2D_tungg")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1633941764 groups=["player"]]
+position = Vector2(500, 0)
+script = ExtResource("5_5dx1l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1231073462]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_dwduf")
+animation = &"walk"
+
+[node name="Collision Area" type="CollisionShape2D" parent="Player" unique_id=1310480359]
+scale = Vector2(1.6, 1.6)
+shape = SubResource("RectangleShape2D_fhbv5")
+
+[node name="Touch Area" type="Area2D" parent="Player" unique_id=1321887580]
+scale = Vector2(0.21, 0.21)
+script = ExtResource("8_84ieu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Touch Area" unique_id=2086481261]
+scale = Vector2(10.775, 10.775)
+shape = SubResource("CircleShape2D_pqap4")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1308191992]
+position = Vector2(0, -50)
+zoom = Vector2(6, 6)
+
+[connection signal="area_entered" from="Player/Touch Area" to="Player/Touch Area" method="_on_area_entered"]
+[connection signal="area_exited" from="Player/Touch Area" to="Player/Touch Area" method="_on_area_exited"]

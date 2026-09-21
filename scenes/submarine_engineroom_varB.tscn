@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://c8xv84ymymhvc"]
+
+[ext_resource type="Texture2D" uid="uid://cphhadfi4hkka" path="res://assets/submarine-engineroom_varB.png" id="1_aaxb3"]
+[ext_resource type="PackedScene" uid="uid://ct7oy0ic7dhgf" path="res://scenes/player.tscn" id="2_msj85"]
+[ext_resource type="Texture2D" uid="uid://cyd32g0ahseui" path="res://assets/engineroom-O2.png" id="4_ab7sj"]
+[ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="5_aaxb3"]
+[ext_resource type="Script" uid="uid://bwq2koqsdw54f" path="res://scripts/storyboardvarB.gd" id="5_msj85"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeuxc"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(0, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77fnc"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(60, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eshb5"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(120, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvm4o"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(180, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn7jv"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(240, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fryua"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(300, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjdp4"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(0, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe7y1"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(60, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrjpb"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(120, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhtp7"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(180, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3t44p"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(240, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5av4x"]
+atlas = ExtResource("4_ab7sj")
+region = Rect2(300, 0, 60, 103)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_17jev"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eeuxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77fnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eshb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvm4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bn7jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fryua")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjdp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qe7y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrjpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhtp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3t44p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5av4x")
+}],
+"loop": true,
+"name": &"fine",
+"speed": 8.0
+}]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
+distance = -66.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_13hwe"]
+b = Vector2(0, 55)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_u8vhs"]
+b = Vector2(0, 66)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gpt28"]
+radius = 50.48762
+
+[node name="Main" type="Node2D" unique_id=946437971]
+
+[node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=1737694489]
+texture_filter = 1
+texture = ExtResource("1_aaxb3")
+
+[node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_msj85")]
+position = Vector2(580, 35)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
+position = Vector2(0, -40.645)
+zoom = Vector2(6, 6)
+
+[node name="spawn_marker" type="Marker2D" parent="." unique_id=1996032913]
+position = Vector2(576, 25)
+
+[node name="Node" type="Node" parent="." unique_id=2137187008]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node" unique_id=694253901]
+texture_filter = 1
+position = Vector2(172.315, -0.5)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_17jev")
+animation = &"fine"
+autoplay = "fine"
+
+[node name="Node3" type="Node" parent="." unique_id=1841162136]
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Node3" unique_id=682821025]
+texture_filter = 1
+position = Vector2(75.83, -0.5)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_17jev")
+animation = &"fine"
+autoplay = "fine"
+
+[node name="Borders" type="Node" parent="." unique_id=1398615709]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=133853300]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=1129879305]
+shape = SubResource("WorldBoundaryShape2D_d4ukq")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders" unique_id=533212300]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2" unique_id=395445668]
+position = Vector2(613, 5)
+shape = SubResource("SegmentShape2D_13hwe")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Borders" unique_id=1008231829]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D3" unique_id=1148645283]
+position = Vector2(-607, -5)
+shape = SubResource("SegmentShape2D_u8vhs")
+
+[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
+z_index = 2
+texture_filter = 1
+texture = ExtResource("5_aaxb3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=6546178]
+script = ExtResource("5_msj85")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1565458755]
+position = Vector2(-501, 6)
+shape = SubResource("CircleShape2D_gpt28")

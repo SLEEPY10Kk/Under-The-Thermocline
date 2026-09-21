@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blfolcil43mtm"
-path="res://.godot/imported/L0.png-d3c2525e27c7a921de5a85696b5da64b.ctex"
+uid="uid://dkihlqjhy4j7o"
+path="res://.godot/imported/engineroom-PC.png-78b4753a35cec425c49e4f9efc11a0ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/L0.png"
-dest_files=["res://.godot/imported/L0.png-d3c2525e27c7a921de5a85696b5da64b.ctex"]
+source_file="res://assets/engineroom-PC.png"
+dest_files=["res://.godot/imported/engineroom-PC.png-78b4753a35cec425c49e4f9efc11a0ce.ctex"]
 
 [params]
 

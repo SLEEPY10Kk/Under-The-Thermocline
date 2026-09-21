@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="GBJAM"
-run/main_scene="uid://c47grygksgjch"
+run/main_scene="uid://uqwfupvg6074"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://di3uxhmdm8hku"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,6 +23,9 @@ SceneManager="*uid://cx03furrcrwyp"
 SubmarineState="*uid://v01cc5cp3oog"
 TransitionLayer="*uid://cl3mjeee0472v"
 PromptUi="*uid://d3ltfd2w3nk6i"
+JournalState="*uid://mxa0clwxidcu"
+NoteOverlay="*uid://cym0psds4mrl7"
+PendingBook="*uid://x3hy6xoaku6r"
 
 [display]
 
@@ -31,6 +35,11 @@ window/size/viewport_height=864
 [global_group]
 
 player=""
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/custom_font="uid://cn0t0btvkhlfs"
 
 [input]
 
@@ -66,6 +75,8 @@ interact={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/transparent_background=true

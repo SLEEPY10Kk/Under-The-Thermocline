@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ur5mffilckn"]
+
+[ext_resource type="Texture2D" uid="uid://duqxthypmm2dg" path="res://assets/StoryBoardvarC.png" id="1_nrufw"]
+[ext_resource type="Script" uid="uid://gfo28emt2kq1" path="res://scripts/jounal_background.gd" id="2_qr82o"]
+[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="3_vykvl"]
+[ext_resource type="Script" uid="uid://csm202c03722y" path="res://scripts/back_to_def_engine.gd" id="4_nrufw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugugf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nrufw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Theme" id="Theme_sf6s8"]
+default_font = ExtResource("3_vykvl")
+
+[node name="StoryBoard" type="Node2D" unique_id=312609719]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1262611312]
+zoom = Vector2(6, 6)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1337183512]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ugugf")
+script = ExtResource("2_qr82o")
+
+[node name="Button" type="Button" parent="." unique_id=947402194]
+offset_left = -71.0
+offset_top = 46.0
+offset_right = -39.0
+offset_bottom = 62.0
+theme = SubResource("Theme_sf6s8")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Back"
+script = ExtResource("4_nrufw")
+metadata/_edit_use_anchors_ = true

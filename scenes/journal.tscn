@@ -1,8 +1,22 @@
 [gd_scene format=3 uid="uid://dd6bl2jvmnteb"]
 
 [ext_resource type="Texture2D" uid="uid://es6oy7eqd176" path="res://assets/book.png" id="1_5bwne"]
+[ext_resource type="Script" uid="uid://dkd31mn32gfcp" path="res://scripts/journal.gd" id="1_mf1i3"]
+[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="3_pelrk"]
+[ext_resource type="Script" uid="uid://ct4wndqn3a2eg" path="res://scripts/book_back.gd" id="4_ll4rq"]
+
+[sub_resource type="Theme" id="Theme_ll4rq"]
+default_font = ExtResource("3_pelrk")
+
+[sub_resource type="Theme" id="Theme_pelrk"]
+default_font = ExtResource("3_pelrk")
 
 [node name="Main" type="Node2D" unique_id=1744141244]
+script = ExtResource("1_mf1i3")
+pages = Array[String](["well, it has been going smoothly, although robert and kaiden are a bit erratic but nothing unusual , i mean ive seen robert complete a report while taking a shit so nothing to worry.", " the things they keep on saying is bogus, robert says he feels his mind feel clouded and convoluted like never before ", " i really just think he's off his meds again. but for kaiden though, he says he saw a bizzare reading on the navigator,", "kaiden isnt a resercher but i have no reason to doubt his judgement but oh well , random shit happens, we will continue researching this depth level and then continue our descent .", "Shawn and robert are still performing the routine proceedings with the marine life species , the amount of new species we have discovered", "is just astounishing but its expected because these are \"uncharted waters\" nobody has truly taken the time to explore this part of the trench", "because of \"no monetary benefits\" i didnt become a Deep-Sea Biogeochemist to listen to this BS like genuienly what the fuck happened", "to \"for the greater good of mankind\" . well what did i expect, this dive is expected to just slightly touch a hadal zone around 7000 meters , our sub", "is only equipped to go till 6500 meters after which we intend to survey with a ROV ofcourse but i dont think that will do jackshit in the hadal zone ,we'll see when we get there though"])
+font_size = 6
+text_box_size = Vector2(100, 120)
+text_box_offset = Vector2(-52, -64)
 
 [node name="Book" type="Sprite2D" parent="." unique_id=1625452754]
 texture_filter = 1
@@ -15,16 +29,41 @@ zoom = Vector2(6, 6)
 energy = 0.44
 blend_mode = 1
 
-[node name="Left_Page" type="RichTextLabel" parent="." unique_id=1181589722]
-top_level = true
-offset_left = -73.0
-offset_top = -54.0
-offset_right = -6.0
-offset_bottom = 53.0
+[node name="TextLabel" type="RichTextLabel" parent="." unique_id=1851961576]
+offset_right = 1.0
+theme = SubResource("Theme_ll4rq")
+metadata/_edit_use_anchors_ = true
 
-[node name="Right_Page" type="RichTextLabel" parent="." unique_id=1851961576]
-top_level = true
-offset_left = 6.0
-offset_top = -54.0
-offset_right = 73.0
-offset_bottom = 53.0
+[node name="NextButton" type="Button" parent="." unique_id=1973126864]
+offset_left = 19.0
+offset_top = 54.0
+offset_right = 78.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Next Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="PrevButton" type="Button" parent="." unique_id=165771199]
+offset_left = -78.0
+offset_top = 54.0
+offset_right = -19.0
+offset_bottom = 70.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Prev Page"
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="." unique_id=776073978]
+offset_left = -78.0
+offset_top = -70.0
+offset_right = -46.0
+offset_bottom = -54.0
+theme = SubResource("Theme_pelrk")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 6
+text = "Back"
+script = ExtResource("4_ll4rq")
+metadata/_edit_use_anchors_ = true

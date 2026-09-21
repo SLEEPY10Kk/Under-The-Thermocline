@@ -6,13 +6,39 @@
 [ext_resource type="Texture2D" uid="uid://cyd32g0ahseui" path="res://assets/engineroom-O2.png" id="4_40quf"]
 [ext_resource type="Script" uid="uid://csnbh1ad87bpn" path="res://scripts/engine_part.gd" id="4_d4ukq"]
 [ext_resource type="Texture2D" uid="uid://dlajxoytm8ntc" path="res://assets/engineroom-front.png" id="6_pjdp4"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
-distance = -66.0
+[ext_resource type="Texture2D" uid="uid://dkihlqjhy4j7o" path="res://assets/engineroom-PC.png" id="6_qe7y1"]
+[ext_resource type="Texture2D" uid="uid://bf3v3rxiv5ht" path="res://assets/engineroom-Valve.png" id="7_vrjpb"]
+[ext_resource type="Texture2D" uid="uid://brlqfr45aaj2x" path="res://assets/engineroom-StoryBoard.png" id="8_qhtp7"]
+[ext_resource type="Script" uid="uid://ca4b2o4nfrq5g" path="res://scripts/storyboard.gd" id="9_3t44p"]
+[ext_resource type="Texture2D" uid="uid://d1frecc4rmwf3" path="res://assets/engineroom-circuit.png" id="11_5av4x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cudy0"]
 radius = 18.0
 height = 62.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeuxc"]
+atlas = ExtResource("4_40quf")
+region = Rect2(0, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77fnc"]
+atlas = ExtResource("4_40quf")
+region = Rect2(60, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eshb5"]
+atlas = ExtResource("4_40quf")
+region = Rect2(120, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvm4o"]
+atlas = ExtResource("4_40quf")
+region = Rect2(180, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn7jv"]
+atlas = ExtResource("4_40quf")
+region = Rect2(240, 0, 60, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fryua"]
+atlas = ExtResource("4_40quf")
+region = Rect2(300, 0, 60, 103)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pjdp4"]
 atlas = ExtResource("4_40quf")
@@ -42,6 +68,29 @@ region = Rect2(300, 0, 60, 103)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_eeuxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77fnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eshb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvm4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bn7jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fryua")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pjdp4")
 }, {
 "duration": 1.0,
@@ -60,32 +109,128 @@ animations = [{
 "texture": SubResource("AtlasTexture_5av4x")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"fine",
 "speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7hcf8"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3qsn"]
+atlas = ExtResource("6_qe7y1")
+region = Rect2(77, 0, 77, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cx1y"]
+atlas = ExtResource("6_qe7y1")
+region = Rect2(0, 0, 77, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lfryd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3qsn")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cx1y")
+}],
+"loop": true,
+"name": &"fine",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfryd"]
+atlas = ExtResource("7_vrjpb")
+region = Rect2(179, 0, 179, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvjlt"]
+atlas = ExtResource("7_vrjpb")
+region = Rect2(0, 0, 179, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2331s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfryd")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvjlt")
+}],
+"loop": true,
+"name": &"fine",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vrjpb"]
+radius = 67.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3t44p"]
+radius = 37.01351
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2331s"]
+atlas = ExtResource("11_5av4x")
+region = Rect2(16, 0, 16, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rormx"]
+atlas = ExtResource("11_5av4x")
+region = Rect2(0, 0, 16, 123)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eeuxc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2331s")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rormx")
+}],
+"loop": true,
+"name": &"fine",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5av4x"]
+radius = 12.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_5av4x"]
+b = Vector2(0, 72)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d4ukq"]
+distance = -66.0
+
 [node name="Main" type="Node2D" unique_id=946437971]
 
 [node name="SubmarineEngineroom" type="Sprite2D" parent="." unique_id=1737694489]
+z_index = -1
 texture_filter = 1
 texture = ExtResource("1_cudy0")
+
+[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
+texture_filter = 1
+texture = ExtResource("6_pjdp4")
 
 [node name="Player" parent="." unique_id=1633941764 instance=ExtResource("2_7hcf8")]
 position = Vector2(580, 35)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1374444346]
-position = Vector2(0, -40.645)
+position = Vector2(0, -50)
 zoom = Vector2(6, 6)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=133853300]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1129879305]
-shape = SubResource("WorldBoundaryShape2D_d4ukq")
-
 [node name="spawn_marker" type="Marker2D" parent="." unique_id=1996032913]
-position = Vector2(579, 35)
+position = Vector2(536, 36)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1817921721]
 position = Vector2(618, 33)
@@ -95,58 +240,120 @@ spawn_marker = "spawn_marker"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949821772]
 shape = SubResource("CapsuleShape2D_cudy0")
 
-[node name="Node" type="Node" parent="." unique_id=2137187008 groups=["engine_parts"]]
+[node name="Coolant1" type="Node" parent="." unique_id=2137187008 groups=["engine_parts"]]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node" unique_id=686817767]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coolant1" unique_id=686817767]
 texture_filter = 1
 position = Vector2(-172.315, -0.5)
 sprite_frames = SubResource("SpriteFrames_d3qsn")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.38830987
+animation = &"fine"
+autoplay = "fine"
 
-[node name="Area2D2" type="Area2D" parent="Node" unique_id=695182155]
+[node name="Area2D2" type="Area2D" parent="Coolant1" unique_id=695182155]
 position = Vector2(-172.315, 22.555)
 script = ExtResource("4_d4ukq")
-part_name = "O2"
+part_name = "Coolant"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Area2D2" unique_id=286602123]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coolant1/Area2D2" unique_id=286602123]
 scale = Vector2(2.765, 2.765)
 shape = SubResource("CircleShape2D_7hcf8")
 
-[node name="Node3" type="Node" parent="." unique_id=1841162136 groups=["engine_parts"]]
+[node name="Coolant2" type="Node" parent="." unique_id=1841162136 groups=["engine_parts"]]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node3" unique_id=658918921]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coolant2" unique_id=658918921]
 texture_filter = 1
 position = Vector2(-75.83, -0.5)
 sprite_frames = SubResource("SpriteFrames_d3qsn")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.7868879
+animation = &"fine"
+autoplay = "fine"
 
-[node name="Area2D2" type="Area2D" parent="Node3" unique_id=357645132]
+[node name="Area2D2" type="Area2D" parent="Coolant2" unique_id=357645132]
 position = Vector2(-75.83, 22.555)
 script = ExtResource("4_d4ukq")
-part_name = "O2"
+part_name = "Coolant"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node3/Area2D2" unique_id=800933086]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coolant2/Area2D2" unique_id=800933086]
 scale = Vector2(2.765, 2.765)
 shape = SubResource("CircleShape2D_7hcf8")
 
-[node name="Node2" type="Node" parent="." unique_id=1398615709 groups=["engine_parts"]]
+[node name="PC" type="Node" parent="." unique_id=1398615709 groups=["engine_parts"]]
 
-[node name="Area2D2" type="Area2D" parent="Node2" unique_id=1387816017]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PC" unique_id=911104951]
+texture_filter = 1
+position = Vector2(330, 28.495)
+sprite_frames = SubResource("SpriteFrames_lfryd")
+animation = &"fine"
+
+[node name="Area2D2" type="Area2D" parent="PC" unique_id=1387816017]
 position = Vector2(332.64, 26.1)
 script = ExtResource("4_d4ukq")
-part_name = "PC"
+part_id = "air_compressor"
+part_name = "Air Compressor"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2/Area2D2" unique_id=1736595338]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PC/Area2D2" unique_id=1736595338]
 scale = Vector2(2.92, 2.92)
 shape = SubResource("CircleShape2D_7hcf8")
 
-[node name="EngineroomFront" type="Sprite2D" parent="." unique_id=1166108266]
-z_index = 2
+[node name="Pump" type="Node" parent="." unique_id=149792360]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pump" unique_id=1621669908]
 texture_filter = 1
-texture = ExtResource("6_pjdp4")
+position = Vector2(-543, 0)
+sprite_frames = SubResource("SpriteFrames_2331s")
+animation = &"fine"
+
+[node name="Area2D" type="Area2D" parent="Pump" unique_id=1866534853]
+position = Vector2(-535, 12)
+script = ExtResource("4_d4ukq")
+part_id = "emergency_blow_valve"
+part_name = "Valve"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pump/Area2D" unique_id=992982748]
+shape = SubResource("CircleShape2D_vrjpb")
+
+[node name="StoryBoard" type="Node" parent="." unique_id=1380281961]
+
+[node name="Sprite2D" type="Sprite2D" parent="StoryBoard" unique_id=243039982]
+texture_filter = 1
+position = Vector2(474, 20)
+texture = ExtResource("8_qhtp7")
+
+[node name="Area2D" type="Area2D" parent="StoryBoard" unique_id=1480882206]
+script = ExtResource("9_3t44p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StoryBoard/Area2D" unique_id=1817000275]
+position = Vector2(475, 20)
+shape = SubResource("CircleShape2D_3t44p")
+
+[node name="Wiring" type="Node" parent="." unique_id=871026745]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Wiring" unique_id=551904549]
+texture_filter = 1
+position = Vector2(91, -10.5)
+sprite_frames = SubResource("SpriteFrames_eeuxc")
+animation = &"broken"
+
+[node name="Area2D" type="Area2D" parent="Wiring" unique_id=302743752]
+script = ExtResource("4_d4ukq")
+part_id = "wiring"
+part_name = "Wiring"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wiring/Area2D" unique_id=662473589]
+position = Vector2(91, 35)
+shape = SubResource("CircleShape2D_5av4x")
+
+[node name="Borders" type="Node" parent="." unique_id=176983763]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders" unique_id=590986918]
+position = Vector2(536, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2" unique_id=537347911]
+position = Vector2(-1136, -46)
+shape = SubResource("SegmentShape2D_5av4x")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=133853300]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=1129879305]
+shape = SubResource("WorldBoundaryShape2D_d4ukq")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

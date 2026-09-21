@@ -12,6 +12,9 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if SubmarineState.qte_active:
+		return
+
 	_update_closest()
 
 	if Input.is_action_just_pressed(interact_action) and _current and _current.can_interact():
@@ -29,6 +32,7 @@ func _on_area_exited(area: Area2D) -> void:
 		if _current == area:
 			_current.set_highlighted(false)
 			_current = null
+			PromptUi.hide_interact_prompt()
 
 
 func _update_closest() -> void:

@@ -1,27 +1,25 @@
 extends Node
 
-@export var engine_room_swap_chance: float = 0.2 
-@export var engine_room_variant_min_depth: float = 5000.0
+signal salvage_boundary_reached(zone_index: int, depth: float)
 
-const NUM_ZONES: int = 4
+const NUM_ZONES: int = 5
 const FIXED_FINAL_DEPTH: float = 10000.0
 const MIN_GAP: float = 500.0
 const MAX_GAP: float = 3000.0
-
-const ZONE_SCENES: Array[String] = [
-	"res://scenes/L0.tscn",
-	"res://scenes/L1.tscn",
-	"res://scenes/L2.tscn",
-	"res://scenes/L3.tscn",
-]
+const FINAL_SCENE: String = "res://scenes/final.tscn"
 
 var depth_zones: Array[Dictionary] = []
 var _zones_generated: bool = false
+var _last_zone_triggered: int = -1
+
+@export var engine_room_variant_min_depth: float = 5000.0
+
 
 var engine_room_variants: Array[String] = [
 	"res://scenes/submarine_engineroom.tscn",
 	"res://scenes/submarine_engineroom_varA.tscn",
-	"res://scenes/submarine_engineroom_variant_c.tscn",
+	"res://scenes/submarine_engineroom_varB.tscn",
+	"res://scenes/submarine_engineroom_varC.tscn",
 ]
 
 var interior_rooms: Dictionary = {
@@ -29,16 +27,21 @@ var interior_rooms: Dictionary = {
 	"engine_room": "res://scenes/submarine_engineroom.tscn",
 }
 
+var _next_variant_index: int = 1
+
 var current_scene_path: String = ""
-var _pending_spawn_position: Vector2 = Vector2.ZERO
-
-const FINAL_SCENE: String = "res://scenes/final.tscn"
-
 var _transitioning: bool = false
-
 
 func _ready() -> void:
 	_generate_depth_zones()
+	SubmarineState.depth_changed.connect(_on_depth_changed)
+	JournalState.book_read.connect(_on_book_read)
+
+
+func _on_book_read(_book_id: String) -> void:
+	if _next_variant_index < engine_room_variants.size():
+		interior_rooms["engine_room"] = engine_room_variants[_next_variant_index]
+		_next_variant_index += 1
 
 
 func _generate_depth_zones() -> void:
@@ -47,9 +50,8 @@ func _generate_depth_zones() -> void:
 
 	var boundaries: Array[float] = []
 	var attempts: int = 0
-
 	var min_gap_steps: int = int(MIN_GAP / 5.0)
-	var max_gap_steps: int = int(MAX_GAP / 5.0)  
+	var max_gap_steps: int = int(MAX_GAP / 5.0)
 	var final_depth_steps: int = int(FIXED_FINAL_DEPTH / 5.0)
 
 	while attempts < 10000:
@@ -86,31 +88,62 @@ func _generate_depth_zones() -> void:
 
 	depth_zones.clear()
 	for i in range(NUM_ZONES):
-		depth_zones.append({
-			"max_depth": boundaries[i],
-			"scene": ZONE_SCENES[i],
-		})
+		depth_zones.append({ "max_depth": boundaries[i] })
 
 	_zones_generated = true
 
 
-func _reposition_player(pos: Vector2) -> void:
-	var player := get_tree().get_first_node_in_group("player")
-	if player:
-		player.global_position = pos
-	else:
-		push_warning("SceneManager: no node in group 'player' found to reposition.")
+func _on_depth_changed(new_depth: float) -> void:
+	for i in range(depth_zones.size()):
+		var boundary: float = depth_zones[i]["max_depth"]
+		if new_depth >= boundary and i > _last_zone_triggered:
+			_last_zone_triggered = i
+			SubmarineState.depth = boundary
+			salvage_boundary_reached.emit(i, boundary)
+			SubmarineState.halt_at_boundary(i)
 
 
-func get_scene_for_depth(depth: float) -> String:
-	for zone in depth_zones:
-		if depth < zone["max_depth"]:
-			return zone["scene"]
-	return depth_zones[-1]["scene"]
+func go_to_scene(target_scene: String, spawn_point_name: String = "") -> void:
+	await _change_scene(target_scene, spawn_point_name, func():
+		SubmarineState.set_in_main_room(false)
+	)
+
+
+func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn") -> void:
+	if not interior_rooms.has(room_name):
+		push_error("SceneManager: unknown room '%s'" % room_name)
+		return
+
+	var target_scene: String = interior_rooms[room_name]
+
+	await _change_scene(target_scene, spawn_point_name, func():
+		var player := get_tree().get_first_node_in_group("player")
+		if player and player.has_method("enter_submarine"):
+			player.enter_submarine()
+		SubmarineState.set_in_main_room(room_name == "main_room")
+	)
+
+
+func go_to_default_engine_room(spawn_point_name: String = "PlayerSpawn") -> void:
+	var default_scene: String = engine_room_variants[0]
+	await _change_scene(default_scene, spawn_point_name, func():
+		var player := get_tree().get_first_node_in_group("player")
+		if player and player.has_method("enter_submarine"):
+			player.enter_submarine()
+		SubmarineState.set_in_main_room(false)
+	)
+
+
+func go_to_final_scene() -> void:
+	await _change_scene(FINAL_SCENE, "PlayerSpawn", func():
+		var player := get_tree().get_first_node_in_group("player")
+		if player and player.has_method("enter_submarine"):
+			player.enter_submarine()
+	)
 
 
 func _change_scene(target_scene: String, spawn_point_name: String, on_ready_callback: Callable) -> void:
-	call_deferred("_do_change_scene", target_scene, spawn_point_name, on_ready_callback)
+	await _do_change_scene(target_scene, spawn_point_name, on_ready_callback)
 
 
 func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_callback: Callable) -> void:
@@ -138,11 +171,11 @@ func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_c
 
 	current_scene_path = target_scene
 
+	PromptUi.detach()
+
 	await get_tree().process_frame
 
-	if spawn_point_name.is_empty():
-		push_warning("SceneManager: spawn_point_name was empty — check the caller passed a valid marker name.")
-	else:
+	if not spawn_point_name.is_empty():
 		var spawn_point: Node = new_scene.find_child(spawn_point_name, true, false)
 		if spawn_point == null:
 			push_warning("SceneManager: spawn point '%s' not found in %s" % [spawn_point_name, new_scene.name])
@@ -158,48 +191,3 @@ func _do_change_scene(target_scene: String, spawn_point_name: String, on_ready_c
 
 	await TransitionLayer.fade_in()
 	_transitioning = false
-
-
-func go_to_final_scene() -> void:
-	await _change_scene(FINAL_SCENE, "PlayerSpawn", func():
-		var player := get_tree().get_first_node_in_group("player")
-		if player and player.has_method("enter_submarine"):
-			player.enter_submarine()
-	)
-
-
-func exit_submarine_to_water(submarine_depth: float, spawn_point_name: String = "PlayerSpawn") -> void:
-	var target_scene: String = get_scene_for_depth(submarine_depth)
-	SubmarineState.set_player_inside(false)
-	await _change_scene(target_scene, spawn_point_name, func():
-		var player := get_tree().get_first_node_in_group("player")
-		if player and player.has_method("exit_submarine"):
-			player.exit_submarine()
-	)
-
-
-func go_to_room(room_name: String, spawn_point_name: String = "PlayerSpawn") -> void:
-	if not interior_rooms.has(room_name):
-		push_error("SceneManager: unknown room '%s'" % room_name)
-		return
-
-	var target_scene: String = interior_rooms[room_name]
-
-	var past_variant_depth: bool = SubmarineState.depth >= engine_room_variant_min_depth
-
-	if room_name == "engine_room" and past_variant_depth and engine_room_variants.size() > 1 and randf() < engine_room_swap_chance:
-		var current_variant: String = interior_rooms["engine_room"]
-		var choices: Array[String] = []
-		for s in engine_room_variants:
-			if s != current_variant:
-				choices.append(s)
-		if choices.is_empty():
-			choices = engine_room_variants
-		target_scene = choices[randi() % choices.size()]
-		interior_rooms["engine_room"] = target_scene
-
-	await _change_scene(target_scene, spawn_point_name, func():
-		var player := get_tree().get_first_node_in_group("player")
-		if player and player.has_method("enter_submarine"):
-			player.enter_submarine()
-	)

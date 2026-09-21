@@ -8,9 +8,32 @@
 [node name="Qte" type="Control" unique_id=1690941811]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_tmbk4")
+
+[node name="Ring" type="TextureRect" parent="." unique_id=657349393]
+z_index = 4
+texture_filter = 1
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_tmbk4")
-ring_texture = ExtResource("2_1k5uo")
-pointer_texture = ExtResource("3_e5op3")
-target_texture = ExtResource("4_impyq")
+texture = ExtResource("2_1k5uo")
+
+[node name="Target" type="TextureRect" parent="." unique_id=1354570327]
+z_index = 4
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("4_impyq")
+
+[node name="Pointer" type="TextureRect" parent="." unique_id=1434962846]
+z_index = 4
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_e5op3")
