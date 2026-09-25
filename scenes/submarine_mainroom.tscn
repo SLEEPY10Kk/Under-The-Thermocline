@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://mrskn1nouvo8" path="res://audio/search.wav" id="6_aeugw"]
 [ext_resource type="Script" uid="uid://ltenanrk4jp7" path="res://scripts/salvage_station.gd" id="6_k3at2"]
 [ext_resource type="AudioStream" uid="uid://bcrbiquqgm8p2" path="res://audio/found.wav" id="7_xlkoe"]
+[ext_resource type="PackedScene" uid="uid://dark3fvojocfi" path="res://scenes/submarine_state.tscn" id="8_xlkoe"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ofrkc"]
 
@@ -21,6 +22,16 @@ b = Vector2(0, 40)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ofrkc"]
 distance = -67.0
+
+[sub_resource type="Gradient" id="Gradient_xlkoe"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wh7iw"]
+gradient = SubResource("Gradient_xlkoe")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
 
 [node name="Main" type="Node2D" unique_id=1182824493]
 
@@ -47,8 +58,9 @@ position = Vector2(-27, 50)
 zoom = Vector2(6, 6)
 
 [node name="Depth" type="Label" parent="." unique_id=1087593535]
-offset_left = -64.0
+offset_left = -63.0
 offset_top = -56.0
+offset_right = 1.0
 offset_bottom = -44.0
 text = "DEPTH : "
 label_settings = SubResource("LabelSettings_twjkf")
@@ -78,5 +90,17 @@ position = Vector2(0, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=2096653715]
 shape = SubResource("WorldBoundaryShape2D_ofrkc")
+
+[node name="SubmarineState" parent="." unique_id=879989842 instance=ExtResource("8_xlkoe")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1507564869]
+energy = 0.3
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1390853770]
+position = Vector2(0, -15)
+energy = 1.45
+texture = SubResource("GradientTexture2D_wh7iw")
+texture_scale = 1.47
 
 [connection signal="body_entered" from="door_to_engineroom" to="door_to_engineroom" method="_on_body_entered"]

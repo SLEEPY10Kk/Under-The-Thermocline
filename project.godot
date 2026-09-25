@@ -14,7 +14,6 @@ config/name="GBJAM"
 run/main_scene="uid://uqwfupvg6074"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="uid://di3uxhmdm8hku"
 config/icon="res://icon.svg"
 
 [autoload]

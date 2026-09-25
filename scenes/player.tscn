@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfdktq313uppd" path="res://scripts/movementscript.gd" id="1_qm0ti"]
 [ext_resource type="Texture2D" uid="uid://chn0ucd31nvb2" path="res://assets/idle.png" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://kgjm5btb27fo" path="res://audio/walk.wav" id="2_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://c6t2bpoqqwd1v" path="res://assets/walk.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://bl3bytlbhvtgv" path="res://scripts/interaction_area.gd" id="3_qhqgy"]
 
@@ -135,8 +136,19 @@ size = Vector2(10, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqap4"]
 
+[sub_resource type="Gradient" id="Gradient_qlg0r"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tuyoq"]
+gradient = SubResource("Gradient_qlg0r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
 [node name="Player" type="CharacterBody2D" unique_id=1633941764 groups=["player"]]
 script = ExtResource("1_qm0ti")
+footstep_sound = ExtResource("2_qlg0r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1231073462]
 z_index = 1
@@ -156,6 +168,14 @@ script = ExtResource("3_qhqgy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Touch Area" unique_id=2086481261]
 scale = Vector2(10.775, 10.775)
 shape = SubResource("CircleShape2D_pqap4")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer" parent="." unique_id=1835244586]
+stream = ExtResource("2_qlg0r")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=909662836]
+energy = 0.55
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_tuyoq")
 
 [connection signal="area_entered" from="Touch Area" to="Touch Area" method="_on_area_entered"]
 [connection signal="area_exited" from="Touch Area" to="Touch Area" method="_on_area_exited"]

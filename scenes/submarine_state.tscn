@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dark3fvojocfi"]
+
+[ext_resource type="Script" uid="uid://v01cc5cp3oog" path="res://scripts/submarine_state.gd" id="1_gibbn"]
+[ext_resource type="AudioStream" uid="uid://bod0v6xaf6rbk" path="res://audio/final_cut.wav" id="2_oa1wr"]
+[ext_resource type="AudioStream" uid="uid://bay70b4rod8au" path="res://audio/subSTOP.wav" id="3_0qulq"]
+[ext_resource type="AudioStream" uid="uid://bdmj3ywbdtncn" path="res://audio/sub.wav" id="4_mst36"]
+
+[node name="SubmarineState" type="Node" unique_id=879989842]
+script = ExtResource("1_gibbn")
+part_broken_sound = ExtResource("2_oa1wr")
+descent_stopped_sound = ExtResource("3_0qulq")
+descent_resumed_sound = ExtResource("4_mst36")
