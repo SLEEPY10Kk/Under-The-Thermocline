@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cc5idofpodiej" path="res://scripts/final.gd" id="1_4pp6u"]
 [ext_resource type="Texture2D" uid="uid://cxsobnfvv41sp" path="res://assets/final1-Sheet.png" id="2_qkvop"]
-[ext_resource type="FontFile" uid="uid://cn0t0btvkhlfs" path="res://Early GameBoy.ttf" id="3_op64y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_op64y"]
 atlas = ExtResource("2_qkvop")
@@ -215,10 +214,6 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_gh6hq"]
-line_spacing = 1.0
-font = ExtResource("3_op64y")
-
 [node name="Main" type="Node2D" unique_id=1496263980]
 script = ExtResource("1_4pp6u")
 video_animation_name = "default"
@@ -232,13 +227,3 @@ frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1256146410]
 zoom = Vector2(6, 6)
-
-[node name="ScrollViewport" type="Control" parent="." unique_id=715307821]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="EndingLabel" type="Label" parent="ScrollViewport" unique_id=1214295461]
-layout_mode = 0
-offset_right = 1.0
-offset_bottom = 8.0
-label_settings = SubResource("LabelSettings_gh6hq")

@@ -20,8 +20,11 @@ func _ready() -> void:
 
 
 func _on_start_pressed() -> void:
+	SubmarineState.reset_state()
+	JournalState.reset_state()
+	SceneManager.reset_state()
 	SubmarineState.set_player_inside(true)
-	SceneManager.go_to_scene(start_scene, "PlayerSpawn")
+	SceneManager.go_to_room("main_room", "PlayerSpawn")
 
 
 func _on_quit_pressed() -> void:

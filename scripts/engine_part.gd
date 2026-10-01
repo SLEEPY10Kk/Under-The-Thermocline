@@ -26,7 +26,7 @@ func can_interact() -> bool:
 	return enabled and is_broken and not _qte_active
 
 
-func interact(player: Node) -> void:
+func interact(_player: Node) -> void:
 	_start_qte()
 
 
@@ -45,7 +45,7 @@ func _update_sprite() -> void:
 func _start_qte() -> void:
 	_qte_active = true
 	SubmarineState.set_qte_active(true)
-	PromptUi.show_interact_prompt("Press W")
+	PromptUi.show_interact_prompt("Press W or Space to Align")
 
 	var layer := CanvasLayer.new()
 	layer.layer = 90
@@ -61,19 +61,21 @@ func _start_qte() -> void:
 	qte.failed.connect(_on_qte_failed.bind(qte, layer))
 
 
-func _on_qte_succeeded(qte: Node, layer: Node) -> void:
+func _on_qte_succeeded(_qte: Node, layer: Node) -> void:
 	layer.queue_free()
 	_qte_active = false
 	SubmarineState.set_qte_active(false)
 	PromptUi.hide_interact_prompt()
+	PromptUi.show_temporary(part_name + " Repaired!", 1.5)
 	_do_repair()
 
 
-func _on_qte_failed(qte: Node, layer: Node) -> void:
+func _on_qte_failed(_qte: Node, layer: Node) -> void:
 	layer.queue_free()
 	_qte_active = false
 	SubmarineState.set_qte_active(false)
 	PromptUi.hide_interact_prompt()
+	PromptUi.show_temporary("Repair Failed!", 1.5)
 
 
 func _do_repair() -> void:
@@ -81,6 +83,3 @@ func _do_repair() -> void:
 	set_broken(false)
 	repaired.emit()
 	set_highlighted(false)
-
-	if randf() < engine_room_swap_chance:
-		SceneManager.go_to_room("engine_room", "PlayerSpawn")

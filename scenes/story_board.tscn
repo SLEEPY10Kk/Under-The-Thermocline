@@ -83,6 +83,8 @@ script = ExtResource("2_ngj8s")
 [node name="3" type="Area2D" parent="Notes" unique_id=1378992006]
 script = ExtResource("3_c48iu")
 book_id = "note3"
+note_title = "Log Entry 404"
+note_text = "Depth gauge loops at 10,000m. Keep the coolant flowing and eyes off the trench floor."
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Notes/3" unique_id=998520318]
 position = Vector2(57, 44)
@@ -91,6 +93,8 @@ shape = SubResource("CapsuleShape2D_ngj8s")
 [node name="2" type="Area2D" parent="Notes" unique_id=1125400747]
 script = ExtResource("3_c48iu")
 book_id = "note2"
+note_title = "Hadal Protocol"
+note_text = "Pressure warnings are illusions. Don't look through the viewport when the hum stops."
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Notes/2" unique_id=1488867365]
 position = Vector2(8, -18)

@@ -7,5 +7,5 @@ func _ready() -> void:
 	prompt_text = "View Storyboard"
 
 
-func interact(player: Node) -> void:
+func interact(_player: Node) -> void:
 	SceneManager.go_to_scene(storyboard_scene)

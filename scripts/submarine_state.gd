@@ -12,7 +12,8 @@ signal salvage_available_changed(available: bool)
 @export var milestone_interval: float = 1000.0
 @export var break_chance: float = 0.35
 
-@onready var _sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
+var _sfx_player: AudioStreamPlayer
+var _descent_audio_player: AudioStreamPlayer
 
 var qte_active: bool = false
 var salvage_available: bool = false
@@ -42,8 +43,39 @@ const MAX_DEPTH: float = 10000.0
 var reached_bottom: bool = false
 
 func _ready() -> void:
+	_sfx_player = AudioStreamPlayer.new()
+	_sfx_player.name = "SfxPlayer"
 	add_child(_sfx_player)
+
+	_descent_audio_player = AudioStreamPlayer.new()
+	_descent_audio_player.name = "DescentAudioPlayer"
+	_descent_audio_player.volume_db = -6.0
+	add_child(_descent_audio_player)
+	_descent_audio_player.finished.connect(_on_descent_audio_finished)
+
+	if not descent_resumed_sound:
+		descent_resumed_sound = preload("res://audio/sub.wav")
+	if not descent_stopped_sound:
+		descent_stopped_sound = preload("res://audio/subSTOP.wav")
+	if not part_broken_sound:
+		part_broken_sound = preload("res://audio/final_cut.wav")
+
 	part_broken.connect(_on_part_broken)
+
+
+func reset_state() -> void:
+	depth = 0.0
+	reached_bottom = false
+	halted_at_boundary = false
+	pending_salvage_zone_index = -1
+	broken_part_ids.clear()
+	_last_milestone_checked = 0.0
+	salvage_available = false
+	reading_note = false
+	qte_active = false
+	_update_descent_audio(false)
+	depth_changed.emit(0.0)
+	salvage_available_changed.emit(false)
 
 
 func _on_part_broken(part_id: String) -> void:
@@ -53,9 +85,31 @@ func _on_part_broken(part_id: String) -> void:
 
 
 func _process(delta: float) -> void:
-	if can_descend():
-		print(depth)
+	var descending: bool = can_descend()
+	_update_descent_audio(descending)
+	if descending:
 		set_depth(depth + descent_rate * delta)
+
+
+func _update_descent_audio(is_descending: bool) -> void:
+	if not _descent_audio_player:
+		return
+
+	if is_descending:
+		var stream: AudioStream = descent_resumed_sound
+		if stream and not _descent_audio_player.playing:
+			if stream is AudioStreamWAV:
+				(stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_DISABLED
+			_descent_audio_player.stream = stream
+			_descent_audio_player.play()
+	else:
+		if _descent_audio_player.playing:
+			_descent_audio_player.stop()
+
+
+func _on_descent_audio_finished() -> void:
+	if can_descend() and _descent_audio_player:
+		_descent_audio_player.play()
 
 
 func can_descend() -> bool:
@@ -90,6 +144,9 @@ func set_depth(value: float) -> void:
 
 func _on_reached_bottom() -> void:
 	print("Reached maximum depth — entering final scene.")
+	_update_descent_audio(false)
+	PromptUi.show_temporary("10000m reached", 2.0)
+	await get_tree().create_timer(1.2).timeout
 	SceneManager.go_to_final_scene()
 
 
@@ -138,6 +195,7 @@ func halt_at_boundary(zone_index: int) -> void:
 	halted_at_boundary = true
 	pending_salvage_zone_index = zone_index
 	set_salvage_available(true)
+	_update_descent_audio(false)
 	_play_sfx(descent_stopped_sound)
 
 
@@ -145,7 +203,7 @@ func resume_descent() -> void:
 	halted_at_boundary = false
 	pending_salvage_zone_index = -1
 	set_salvage_available(false)
-	_play_sfx(descent_resumed_sound)
+	_update_descent_audio(can_descend())
 
 
 func set_salvage_available(value: bool) -> void:
@@ -154,6 +212,6 @@ func set_salvage_available(value: bool) -> void:
 
 
 func _play_sfx(stream: AudioStream) -> void:
-	if stream:
+	if stream and _sfx_player:
 		_sfx_player.stream = stream
 		_sfx_player.play()

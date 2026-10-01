@@ -1,4 +1,3 @@
-
 class_name Interactable
 extends Area2D
 
@@ -12,7 +11,7 @@ func can_interact() -> bool:
 	return enabled
 
 
-func interact(player: Node) -> void:
+func interact(_player: Node) -> void:
 	push_warning("Interactable: interact() not implemented on %s" % name)
 
 
@@ -21,5 +20,5 @@ func set_highlighted(value: bool) -> void:
 	_on_highlight_changed(value)
 
 
-func _on_highlight_changed(value: bool) -> void:
+func _on_highlight_changed(_value: bool) -> void:
 	pass

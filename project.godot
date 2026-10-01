@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneManager="*uid://cx03furrcrwyp"
-SubmarineState="*uid://v01cc5cp3oog"
+SubmarineState="*uid://dark3fvojocfi"
 TransitionLayer="*uid://cl3mjeee0472v"
 PromptUi="*uid://d3ltfd2w3nk6i"
 JournalState="*uid://mxa0clwxidcu"

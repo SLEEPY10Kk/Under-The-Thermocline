@@ -13,6 +13,10 @@ var _busy: bool = false
 
 
 func _ready() -> void:
+	if not _audio_player:
+		_audio_player = AudioStreamPlayer.new()
+		_audio_player.name = "AudioStreamPlayer"
+		add_child(_audio_player)
 	prompt_text = "Check Salvage"
 	SubmarineState.salvage_available_changed.connect(_on_availability_changed)
 	_on_availability_changed(SubmarineState.salvage_available)
@@ -26,7 +30,7 @@ func _on_availability_changed(_available: bool) -> void:
 	set_highlighted(false)
 
 
-func interact(player: Node) -> void:
+func interact(_player: Node) -> void:
 	_run_salvage_sequence()
 
 
@@ -39,7 +43,8 @@ func _run_salvage_sequence() -> void:
 	if search_sound and _audio_player:
 		_audio_player.stream = search_sound
 		_audio_player.play()
-		await _audio_player.finished
+		await get_tree().create_timer(3.0).timeout
+		_audio_player.stop()
 	else:
 		await get_tree().create_timer(1.2).timeout
 
@@ -56,7 +61,7 @@ func _run_salvage_sequence() -> void:
 		_audio_player.play()
 
 	PromptUi.show_interact_prompt(found_text)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.8).timeout
 
 	PromptUi.hide_interact_prompt()
 	SubmarineState.resume_descent()

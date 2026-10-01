@@ -24,3 +24,8 @@ func is_found(book_id: String) -> bool:
 
 func found_count() -> int:
 	return found_book_ids.size()
+
+
+func reset_state() -> void:
+	found_book_ids.clear()
+	read_book_ids.clear()

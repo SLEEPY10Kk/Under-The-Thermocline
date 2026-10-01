@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var pages: Array[String] = []
+@export var page_turn_sound: AudioStream = preload("res://audio/pageTURN.wav")
 
 @export var font_size: int = 5
 @export var text_box_size: Vector2 = Vector2(60, 120)
@@ -12,13 +13,17 @@ extends Node2D
 @onready var _back_button: Button = $BackButton
 
 var _current_page: int = 0
+var _audio_player: AudioStreamPlayer
 
 
 func _ready() -> void:
+	_audio_player = AudioStreamPlayer.new()
+	add_child(_audio_player)
 	_setup_label()
 	_next_button.pressed.connect(_go_next)
 	_prev_button.pressed.connect(_go_prev)
-	_back_button.pressed.connect(_go_back)
+	if _back_button and _back_button.get_script() == null:
+		_back_button.pressed.connect(_go_back)
 	_show_page()
 
 
@@ -66,14 +71,25 @@ func _show_page() -> void:
 func _go_next() -> void:
 	if _current_page < pages.size() - 1:
 		_current_page += 1
+		_play_page_turn()
 		_show_page()
 
 
 func _go_prev() -> void:
 	if _current_page > 0:
 		_current_page -= 1
+		_play_page_turn()
 		_show_page()
 
 
+func _play_page_turn() -> void:
+	if page_turn_sound and _audio_player:
+		_audio_player.stream = page_turn_sound
+		_audio_player.play()
+
+
 func _go_back() -> void:
+	if not PendingBook.book_id.is_empty():
+		JournalState.mark_read(PendingBook.book_id)
+		PendingBook.book_id = ""
 	SceneManager.go_to_scene("res://scenes/story_board.tscn")

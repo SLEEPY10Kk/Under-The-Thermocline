@@ -10,6 +10,8 @@ func _on_book_found(_id: String) -> void:
 
 
 func _update_animation() -> void:
+	if not sprite_frames:
+		return
 	var count: int = JournalState.found_count()
 	var anim_name: String = str(count)
 
@@ -17,5 +19,7 @@ func _update_animation() -> void:
 		animation = anim_name
 		stop()  
 		frame = 0
-	else:
-		push_warning("JournalBackground: no animation named '%s' found" % anim_name)
+	elif sprite_frames.has_animation("default"):
+		animation = "default"
+		stop()
+		frame = 0

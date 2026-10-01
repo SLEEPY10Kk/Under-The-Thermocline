@@ -14,9 +14,12 @@ var _close_button: Button
 
 func _ready() -> void:
 	layer = 110
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	var font: FontFile = load("res://Early GameBoy.ttf") as FontFile
 
 	_dim_bg = ColorRect.new()
-	_dim_bg.color = COLOR_DARKEST
+	_dim_bg.color = Color(COLOR_DARKEST.r, COLOR_DARKEST.g, COLOR_DARKEST.b, 0.85)
 	_dim_bg.anchor_right = 1.0
 	_dim_bg.anchor_bottom = 1.0
 	_dim_bg.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -24,7 +27,13 @@ func _ready() -> void:
 	add_child(_dim_bg)
 
 	_panel = PanelContainer.new()
-	_panel.custom_minimum_size = Vector2(340, 0)
+	_panel.custom_minimum_size = Vector2(360, 0)
+	_panel.anchor_left = 0.5
+	_panel.anchor_top = 0.5
+	_panel.anchor_right = 0.5
+	_panel.anchor_bottom = 0.5
+	_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 
 	var style := StyleBoxFlat.new()
 	style.bg_color = COLOR_MID
@@ -34,20 +43,27 @@ func _ready() -> void:
 	style.corner_radius_top_right = 0
 	style.corner_radius_bottom_left = 0
 	style.corner_radius_bottom_right = 0
-	style.set_content_margin_all(16)
+	style.set_content_margin_all(18)
 	_panel.add_theme_stylebox_override("panel", style)
 	_panel.visible = false
 	add_child(_panel)
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 10)
+	vbox.add_theme_constant_override("separation", 12)
 	_panel.add_child(vbox)
 
 	_title_label = Label.new()
+	if font:
+		_title_label.add_theme_font_override("font", font)
+	_title_label.add_theme_font_size_override("font_size", 16)
 	_title_label.add_theme_color_override("font_color", COLOR_TEAL)
+	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(_title_label)
 
 	_text_label = Label.new()
+	if font:
+		_text_label.add_theme_font_override("font", font)
+	_text_label.add_theme_font_size_override("font_size", 12)
 	_text_label.add_theme_color_override("font_color", COLOR_LIGHT)
 	_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	vbox.add_child(_text_label)
@@ -60,8 +76,11 @@ func _ready() -> void:
 	button_style.corner_radius_bottom_right = 0
 
 	_close_button = Button.new()
-	_close_button.text = "Close"
-	_close_button.custom_minimum_size = Vector2(0, 28)
+	_close_button.text = "Close (E)"
+	if font:
+		_close_button.add_theme_font_override("font", font)
+	_close_button.add_theme_font_size_override("font_size", 12)
+	_close_button.custom_minimum_size = Vector2(0, 30)
 	_close_button.add_theme_stylebox_override("normal", button_style)
 	_close_button.add_theme_stylebox_override("hover", button_style)
 	_close_button.add_theme_stylebox_override("pressed", button_style)
@@ -72,8 +91,13 @@ func _ready() -> void:
 	_close_button.pressed.connect(hide_note)
 	vbox.add_child(_close_button)
 
-	await get_tree().process_frame
-	_panel.set_anchors_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _panel.visible:
+		return
+	if event.is_action_pressed("interact") or event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_accept"):
+		get_viewport().set_input_as_handled()
+		hide_note()
 
 
 func show_note(title: String, text: String) -> void:
@@ -82,8 +106,6 @@ func show_note(title: String, text: String) -> void:
 
 	_dim_bg.visible = true
 	_panel.visible = true
-	_dim_bg.process_mode = Node.PROCESS_MODE_ALWAYS
-	_panel.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	get_tree().paused = true
 	SubmarineState.set_reading_note(true)

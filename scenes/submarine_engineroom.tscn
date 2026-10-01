@@ -11,6 +11,17 @@
 [ext_resource type="Texture2D" uid="uid://brlqfr45aaj2x" path="res://assets/engineroom-StoryBoard.png" id="8_qhtp7"]
 [ext_resource type="Script" uid="uid://ca4b2o4nfrq5g" path="res://scripts/storyboard.gd" id="9_3t44p"]
 [ext_resource type="Texture2D" uid="uid://d1frecc4rmwf3" path="res://assets/engineroom-circuit.png" id="11_5av4x"]
+[ext_resource type="Script" path="res://scripts/flicker_light.gd" id="12_flicker"]
+
+[sub_resource type="Gradient" id="Gradient_light"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
+gradient = SubResource("Gradient_light")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cudy0"]
 radius = 18.0
@@ -355,5 +366,52 @@ shape = SubResource("SegmentShape2D_5av4x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=1129879305]
 shape = SubResource("WorldBoundaryShape2D_d4ukq")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=741029182]
+energy = 0.25
+blend_mode = 1
+
+[node name="CeilingLightCenter" type="PointLight2D" parent="." unique_id=892104112]
+position = Vector2(0, -20)
+energy = 1.1
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 4.5
+script = ExtResource("12_flicker")
+base_energy = 1.1
+
+[node name="CeilingLightLeft" type="PointLight2D" parent="." unique_id=892104113]
+position = Vector2(-320, -20)
+energy = 0.85
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 3.8
+script = ExtResource("12_flicker")
+base_energy = 0.85
+pulse_speed = 2.8
+
+[node name="CeilingLightRight" type="PointLight2D" parent="." unique_id=892104114]
+position = Vector2(320, -20)
+energy = 0.85
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 3.8
+script = ExtResource("12_flicker")
+base_energy = 0.85
+pulse_speed = 3.1
+
+[node name="TerminalLight" type="PointLight2D" parent="." unique_id=892104115]
+position = Vector2(-242, 5)
+color = Color(0.62, 0.96, 0.9, 1)
+energy = 1.2
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 1.8
+script = ExtResource("12_flicker")
+base_energy = 1.2
+flicker_strength = 0.12
+
+[node name="StoryboardLight" type="PointLight2D" parent="." unique_id=892104116]
+position = Vector2(475, 15)
+color = Color(0.62, 0.96, 0.9, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 1.9
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
